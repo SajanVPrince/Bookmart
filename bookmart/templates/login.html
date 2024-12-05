@@ -6,12 +6,20 @@
     <title>bookmart_login</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <style>
+        .btnn a:hover{
+            color: black;
+        }
+        .btnn:hover{
+            color:  #6562e7;
+        }
+    </style>
 </head>
 <body>
     <div class="form">
         <h2>Login</h2>
-        <input type="email" name="email" placeholder="Enter Email Here">
-        <input type="password" name="" placeholder="Enter Password Here">
+        <input type="email" name="uname" placeholder="Enter Email Here">
+        <input type="password" name="password" placeholder="Enter Password Here">
         <button class="btnn"><a href="#">Login</a></button>
 
         <p class="link">Don't have an account<br>

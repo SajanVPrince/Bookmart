@@ -57,15 +57,13 @@
     color: #fff;
     transition: 0.4s ease;
 }
-.btnn:hover{
-    background: #fff;
-    color:  #6562e7;
-}
+
 .btnn a{
     text-decoration: none;
     color: #ffffff;
     font-weight: bold;
 }
+
 .form .link{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 17px;

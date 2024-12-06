@@ -32,12 +32,18 @@ def bk_logout(req):
     logout(req)
     return redirect(bk_login)
 
+def register(req):
+    return render(req,'register.html')
+
 # -----------------------User-------------------------
 
 
 def bk_home(req):
-    if 'book' in req.session:
-        data=Books.objects.all()
-        return render(req,'user/home.html',{'data':data})
-    else:
-        return render(req, 'user/home.html', {'data': None})
+    data=Books.objects.filter(bk_genres='drama')
+    data1=Books.objects.filter(bk_genres='sci-fi')
+    data2=Books.objects.filter(bk_genres='love')
+    data3=Books.objects.filter(bk_genres='fantasy')
+    return render(req,'user/home.html',{'data':data,'data1':data1,'data2':data2,'data3':data3})
+
+def sell(req):
+    return render(req,'user/sell.html')

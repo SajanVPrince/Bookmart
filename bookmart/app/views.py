@@ -1,11 +1,11 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
-
+from .models import *
 
 # Create your views here.
 def bk_login(req):
-    if 'eshop' in req.session:
+    if 'book' in req.session:
         return redirect(bk_home)
     if req.method=='POST':
         uname=req.POST['uname']
@@ -14,7 +14,7 @@ def bk_login(req):
         if data:
             if data.is_superuser:
                 login(req,data)
-                req.session['eshop']=uname   
+                req.session['book']=uname   
                 return redirect(ad_home)
             else:
                 login(req,data)
@@ -36,4 +36,8 @@ def bk_logout(req):
 
 
 def bk_home(req):
-    return render(req,'user/home.html')
+    if 'book' in req.session:
+        data=Books.objects.all()
+        return render(req,'user/home.html',{'data':data})
+    else:
+        return render(req, 'user/home.html', {'data': None})

@@ -5,6 +5,8 @@ urlpatterns = [
     path('login',views.bk_login),
     path('logout',views.bk_logout),
     path('register',views.register),
+    path('verifyotp',views.verify_otp),
+
 
 
     # --------------User------------

@@ -1,9 +1,15 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
+from django.contrib.auth.models import *
+from django.core.mail import send_mail
 from .models import *
+import random
 
 # Create your views here.
+def generate_otp():
+    return str(random.randint(100000, 999999))
+
 def bk_login(req):
     if 'book' in req.session:
         return redirect(bk_home)
@@ -32,8 +38,66 @@ def bk_logout(req):
     logout(req)
     return redirect(bk_login)
 
+def send_otp_email(email, otp):
+    subject = "Your OTP for Registration"
+    message = f"Your OTP code is {otp}. It is valid for the next 10 minutes."
+    from_email = "bookmarta64@gmail.com" 
+    send_mail(subject, message, from_email, [email])
+
 def register(req):
-    return render(req,'register.html')
+    if req.method=='POST':
+        name=req.POST['name']
+        email=req.POST['email']
+        password=req.POST['password']
+        password1=req.POST['password1']
+        if password==password1:
+            try:
+                otp = generate_otp()
+                send_otp_email(email, otp)
+                req.session['otp'] = otp
+                req.session['userdata'] = {
+                    'name': name,
+                    'email': email,
+                    'password': password
+                }
+                messages.info(req, "An OTP has been sent to your email. Please verify to complete registration.")
+                return redirect('verify_otp')
+            except:
+                if User.objects.filter(email=email).exists():
+                    messages.warning(req,"email already exists enter a new email id")
+                    return render(req,'user/register.html')
+        else:
+            messages.warning(req,"Password Missmatch")
+            return render(req,'user/register.html')
+    else:
+        return render(req,'register.html')
+    
+def verify_otp(req):
+    if req.method == 'POST':
+        entered_otp = req.POST['otp']
+        session_otp = req.session.get('otp')
+        userdata = req.session.get('us')
+        if entered_otp and session_otp and entered_otp == session_otp:
+            try:
+                User.objects.create_user(
+                    first_name=userdata['name'],
+                    email=userdata['email'],
+                    password=userdata['password'],
+                    username=userdata['email']
+                )
+                req.session.pop('userdata', None)
+                req.session.pop('otp', None)
+                messages.success(req, "Registration successful! You can now log in.")
+                return redirect('bk_login')
+            except:
+                pass
+        else:
+            messages.warning(req, "Invalid OTP. Please try again.")
+            return redirect('verify_otp')
+    else:
+        return render(req,'verify_otp.html')
+
+
 
 # -----------------------User-------------------------
 

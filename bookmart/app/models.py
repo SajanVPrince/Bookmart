@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import *
 
 # Create your models here.
 class Books(models.Model):
@@ -10,3 +11,9 @@ class Books(models.Model):
     ofr_price=models.IntegerField()
     img=models.FileField()
     dis=models.TextField()
+
+class Userdtl(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    phone=models.IntegerField()
+    adress=models.TextField()
+    pincode=models.IntegerField()

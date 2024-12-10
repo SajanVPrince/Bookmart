@@ -17,13 +17,16 @@
 </head>
 <body>
     <div class="form">
+        <form action="" method="post">
+            {% csrf_token %}
         <h2>Login</h2>
-        <input type="email" name="uname" placeholder="Enter Email Here">
+        <input type="text" name="uname" placeholder="Enter Email Here">
         <input type="password" name="password" placeholder="Enter Password Here">
-        <button class="btnn"><a href="bk_home">Login</a></button>
+        <button class="btnn">Login</button>
 
         <p class="link">Don't have an account<br>
         <a href="register">Sign up </a> here</a></p>
+    </form>
     </div>
         </div>
     </div>

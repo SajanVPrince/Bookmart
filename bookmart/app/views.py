@@ -7,29 +7,26 @@ from .models import *
 import random
 
 # Create your views here.
-def generate_otp():
-    return str(random.randint(100000, 999999))
 
 def bk_login(req):
-    if 'book' in req.session:
-        return redirect(bk_home)
+    if 'user' in req.session:
+        return redirect(userpro)
     if req.method=='POST':
         uname=req.POST['uname']
-        password=req.POST['pswd']
+        password=req.POST['password']
         data=authenticate(username=uname,password=password)
         if data:
             if data.is_superuser:
                 login(req,data)
-                req.session['book']=uname   
-                return redirect(ad_home)
+                req.session['shop']=uname
+                return redirect(adhome)
             else:
                 login(req,data)
                 req.session['user']=uname
                 return redirect(bk_home)
         else:
-            messages.warning(req,"please check your username or password")
-            return render(req,'login.html')
-    
+            messages.warning(req,"Invalid uname or password")
+            return redirect(bk_login)
     else:
         return render(req,'login.html')
 
@@ -37,15 +34,6 @@ def bk_logout(req):
     req.session.flush()          
     logout(req)
     return redirect(bk_login)
-
-def send_otp_email(email, otp):
-    subject = "Your OTP for Registration"
-    message = f"Your OTP code is {otp}. It is valid for the next 10 minutes."
-    from_email = "bookmarta64@gmail.com" 
-    try:
-        send_mail(subject, message, from_email, [email])
-    except Exception as e:
-        raise Exception(f"Failed to send email: {str(e)}")
 
 
 def register(req):
@@ -56,16 +44,10 @@ def register(req):
         password1=req.POST['password1']
         if password==password1:
             try:
-                otp = generate_otp()
-                send_otp_email(email, otp)
-                req.session['otp'] = otp
-                req.session['userdata'] = {
-                    'name': name,
-                    'email': email,
-                    'password': password
-                }
-                messages.info(req, "An OTP has been sent to your email. Please verify to complete registration.")
-                return redirect('verify_otp')
+                data=User.objects.create_user(first_name=name,email=email,password=password,username=email)
+                data.save()
+                return redirect(bk_login)
+               
             except:
                 if User.objects.filter(email=email).exists():
                     messages.warning(req,"email already exists enter a new email id")
@@ -76,32 +58,11 @@ def register(req):
     else:
         return render(req,'register.html')
     
-def verify_otp(req):
-    if req.method == 'POST':
-        entered_otp = req.POST['otp']
-        session_otp = req.session.get('otp')
-        userdata = req.session.get('userdata')
-        if entered_otp and session_otp and entered_otp == session_otp:
-            try:
-                User.objects.create_user(
-                    first_name=userdata['name'],
-                    email=userdata['email'],
-                    password=userdata['password'],
-                    username=userdata['email']
-                )
-                req.session.pop('userdata', None)
-                req.session.pop('otp', None)
-                messages.success(req, "Registration successful! You can now log in.")
-                return redirect('bk_login')
-            except:
-                pass
-        else:
-            messages.warning(req, "Invalid OTP. Please try again.")
-            return redirect('verify_otp')
-    else:
-        return render(req,'verify_otp.html')
+# ------------------------ADMIN---------------------
 
-
+def adhome(req):
+    return render(req,'admin/admin.html')
+    
 
 # -----------------------User-------------------------
 
@@ -114,8 +75,26 @@ def bk_home(req):
     return render(req,'user/home.html',{'data':data,'data1':data1,'data2':data2,'data3':data3})
 
 def sell(req):
-    return render(req,'user/sell.html')
+    if 'user' in req.session:
+        if req.method=='POST':
+            bk_name=req.POST['bk_name']
+            ath_name=req.POST['ath_name']
+            bk_price=req.POST['bk_price']
+            bk_genres=req.POST['bk_genres']
+            img=req.FILES['img']
+            bk_dis=req.POST['bk_dis']
+            data=Sbook.objects.create(sname=bk_name,sath_name=ath_name,sprice=bk_price,sbk_genres=bk_genres,simg=img,sdis=bk_dis)
+            data.save()
+            return redirect(sell)
+        else:
+            return render(req,'user/sell.html')
+    else:
+        return redirect(bk_login)
+
 
 def view_prod(req,id):
     data=Books.objects.get(pk=id)
     return render(req,'user/viewprod.html',{'data':data})
+
+def userpro(req):
+    return render(req,'user/userprofile.html')

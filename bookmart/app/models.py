@@ -17,3 +17,16 @@ class Userdtl(models.Model):
     phone=models.IntegerField()
     adress=models.TextField()
     pincode=models.IntegerField()
+
+class Sbook(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    sname=models.TextField()
+    sath_name=models.TextField()
+    sbk_genres=models.TextField()
+    sprice=models.IntegerField()
+    simg=models.FileField()
+    sdis=models.TextField()
+
+    
+
+

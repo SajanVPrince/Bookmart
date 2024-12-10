@@ -41,7 +41,7 @@
           <button class="btn btn-primary"><a href="" style="color: rgb(255, 255, 255); margin-top: 8px;"><i class="fa-solid fa-search"></i></a></button>
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
-              <a class="nav-link" href="bk_login"><i class="fa-solid fa-user" style="margin-left: 20px;"></i></a>
+              <a class="nav-link" href="login"><i class="fa-solid fa-user" style="margin-left: 20px;"></i></a>
             </li>
             <li class="nav-item" >
               <a class="nav-link" href=""><i class="fa-solid fa-cart-shopping" style="margin-left: 20px;"></i></a>
@@ -51,8 +51,58 @@
       </div>  
     </div>
   </nav>
-      <div class="continer mt-5">
-        sell book
-      </div>
+  <div class="container">
+  <div class="form-container" style="margin-top: 80px;">
+    <div>
+    <h4>Sell Your Book</h4><br>
+    <form action="" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+          <div class="mb-2">
+            <label for="prd_name" class="form-label">Book Name:</label>
+            <input type="text" class="form-control" placeholder="Enter Product name" name="bk_name" required>
+          </div>
+          <div class="mb-2">
+            <label for="prd_name" class="form-label">Author Name:</label>
+            <input type="text" class="form-control" placeholder="Enter Product name" name="ath_name" required>
+          </div>
+          <div class="mb-2">
+            <label for="prd_name" class="form-label">Genres:</label>
+            <select name="bk_genres" style="width: 100%;">
+              <option value="novel">Novel</option>
+              <option value="scifi">Sci-Fi</option>
+              <option value="fantacy">Fantacy</option>
+              <option value="fantacy">Love</option>
+              <option value="others">Others</option>
+            </select>
+          </div>
+          <div class="mb-2">
+            <label for="price" class="form-label">Price:</label>
+            <input type="number" class="form-control" placeholder="Enter Product price" name="bk_price" required>
+          </div>
+          <div class="mb-2">
+            <label for="img" class="form-label">Image:</label>
+            <input type="file" class="form-control" name="img" required>
+          </div>
+          <div class="mb-2">
+            <label for="dis" class="form-label">Discription:</label>
+            <input type="text" class="form-control" placeholder="Enter Product details" name="bk_dis" required>
+          </div>
+          <div class="form-check mb-2">
+          </div>
+          <div>
+            <a type="submit" href="bk_home" class="btn btn-danger">Back</a>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+    </form>
+</div>
+</div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3 mt-3">
+      
+    </div>
+  </div>
+</div>
 </body>
 </html>

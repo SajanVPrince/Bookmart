@@ -42,7 +42,11 @@ def send_otp_email(email, otp):
     subject = "Your OTP for Registration"
     message = f"Your OTP code is {otp}. It is valid for the next 10 minutes."
     from_email = "bookmarta64@gmail.com" 
-    send_mail(subject, message, from_email, [email])
+    try:
+        send_mail(subject, message, from_email, [email])
+    except Exception as e:
+        raise Exception(f"Failed to send email: {str(e)}")
+
 
 def register(req):
     if req.method=='POST':
@@ -76,7 +80,7 @@ def verify_otp(req):
     if req.method == 'POST':
         entered_otp = req.POST['otp']
         session_otp = req.session.get('otp')
-        userdata = req.session.get('us')
+        userdata = req.session.get('userdata')
         if entered_otp and session_otp and entered_otp == session_otp:
             try:
                 User.objects.create_user(
@@ -111,3 +115,7 @@ def bk_home(req):
 
 def sell(req):
     return render(req,'user/sell.html')
+
+def view_prod(req,id):
+    data=Books.objects.get(pk=id)
+    return render(req,'user/viewprod.html',{'data':data})

@@ -7,6 +7,10 @@
 
 .navbar{
     z-index: 100;
+    background-color: rgb(180, 250, 76);
+}
+#navbar1 form{
+    margin-left: 90px;
 }
 
 #demo1{
@@ -36,4 +40,17 @@
 }
 .user a:hover{
     color: greenyellow;
+}
+
+@media (max-width:700px) {
+    #navb form {
+        flex-direction:column ;
+    }
+    .row{
+        display: grid;
+        grid-template-columns: auto auto;
+    }
+    #demo img{
+        height: 200px;
+    }
 }

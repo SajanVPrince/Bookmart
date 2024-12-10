@@ -13,6 +13,8 @@ urlpatterns = [
 
     path('',views.bk_home),
     path('sell',views.sell),
+    path('viewprod/<id>',views.view_prod),
+
 
 
 

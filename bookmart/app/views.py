@@ -68,26 +68,28 @@ def adhome(req):
 
 
 def bk_home(req):
-    data=Books.objects.filter(bk_genres='drama')
-    data1=Books.objects.filter(bk_genres='sci-fi')
-    data2=Books.objects.filter(bk_genres='love')
-    data3=Books.objects.filter(bk_genres='fantasy')
+    data=Books.objects.filter(bk_genres='drama')[::-1][:4]
+    data1=Books.objects.filter(bk_genres='sci-fi')[::-1][:4]
+    data2=Books.objects.filter(bk_genres='love')[::-1][:4]
+    data3=Books.objects.filter(bk_genres='fantasy')[::-1][:4]
     return render(req,'user/home.html',{'data':data,'data1':data1,'data2':data2,'data3':data3})
 
 def sell(req):
     if 'user' in req.session:
+        data=Sbook.objects.all()[::-1]
         if req.method=='POST':
+            user=User.objects.get(username=req.session['user'])
             bk_name=req.POST['bk_name']
             ath_name=req.POST['ath_name']
             bk_price=req.POST['bk_price']
             bk_genres=req.POST['bk_genres']
             img=req.FILES['img']
             bk_dis=req.POST['bk_dis']
-            data=Sbook.objects.create(sname=bk_name,sath_name=ath_name,sprice=bk_price,sbk_genres=bk_genres,simg=img,sdis=bk_dis)
+            data=Sbook.objects.create(user=user,sname=bk_name,sath_name=ath_name,sprice=bk_price,sbk_genres=bk_genres,simg=img,sdis=bk_dis)
             data.save()
             return redirect(sell)
         else:
-            return render(req,'user/sell.html')
+            return render(req,'user/sell.html',{'data':data})
     else:
         return redirect(bk_login)
 

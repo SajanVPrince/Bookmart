@@ -100,3 +100,27 @@ def view_prod(req,id):
 
 def userpro(req):
     return render(req,'user/userprofile.html')
+
+def drama(req):
+    data=Books.objects.filter(bk_genres='drama')[::-1]
+    return render(req,'user/books/drama.html',{'data':data})
+
+def love(req):
+    data=Books.objects.filter(bk_genres='love')[::-1]
+    return render(req,'user/books/love.html',{'data':data})
+
+def fantacy(req):
+    data=Books.objects.filter(bk_genres='fantasy')[::-1]
+    return render(req,'user/books/fantacy.html',{'data':data})
+
+def scifi(req):
+    data=Books.objects.filter(bk_genres='sci-fi')[::-1]
+    return render(req,'user/books/scifi.html',{'data':data})
+
+def others(req):
+    data=Books.objects.filter(bk_genres='others')[::-1]
+    return render(req,'user/books/others.html',{'data':data})
+
+def usedbk(req):
+    data=Sbook.objects.all()[::-1]
+    return render(req,'user/usedbook.html',{'data':data})

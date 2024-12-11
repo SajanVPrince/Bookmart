@@ -23,10 +23,17 @@
             <a href="sell" class="nav-link active">Sell Your Book
             </a>
           </li> 
-          <li class="nav-item" id="dropdown">
-            <a href="" class="nav-link" id="dropbtn">Books
-            </a>
-          </li> 
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Books</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Drama</a></li>
+              <li><a class="dropdown-item" href="#">Fantacy</a></li>
+              <li><a class="dropdown-item" href="#">Love</a></li>
+              <li><a class="dropdown-item" href="#">Sci-Fi</a></li>
+              <li><a class="dropdown-item" href="#">Others</a></li>
+
+            </ul>
+          </li>
           <li class="nav-item" id="dropdown">
             <a href="" class="nav-link" id="dropbtn"> link 3
             </a>
@@ -68,11 +75,11 @@
           <div class="mb-2">
             <label for="prd_name" class="form-label">Genres:</label>
             <select name="bk_genres" style="width: 100%;">
-              <option value="novel">Novel</option>
-              <option value="scifi">Sci-Fi</option>
-              <option value="fantacy">Fantacy</option>
-              <option value="fantacy">Love</option>
-              <option value="others">Others</option>
+              <option value="novel">drama</option>
+              <option value="scifi">sci-fi</option>
+              <option value="fantacy">fantacy</option>
+              <option value="fantacy">love</option>
+              <option value="others">others</option>
             </select>
           </div>
           <div class="mb-2">
@@ -110,7 +117,7 @@
                 <p class="card-text">{{i.sath_name}}</p>
                 <p class="card-text">{{i.sbk_genres}}</p>
                 <p class="card-text">{{i.sdis}}</p>
-                <h3 class="card-text">{{i.sprice}}</h3>
+                <h3 class="card-text">Rs.{{i.sprice}}</h3>
               </div>
             </div>
           </a>

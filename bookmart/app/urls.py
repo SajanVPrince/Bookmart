@@ -21,6 +21,15 @@ urlpatterns = [
     path('sell',views.sell),
     path('viewprod/<id>',views.view_prod),
     path('userpro',views.userpro),
+    path('dramabk',views.drama),
+    path('lovebk',views.love),
+    path('fantacybk',views.fantacy),
+    path('scifibk',views.scifi),
+    path('otherbk',views.others),
+    path('usedbk',views.usedbk),
+
+
+
 
 
 

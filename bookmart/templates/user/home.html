@@ -38,12 +38,18 @@
                 <a href="sell" class="nav-link">Sell Your Book
                 </a>
               </li> 
-              <li class="nav-item" id="dropdown">
-                <a href="" class="nav-link" id="dropbtn">Books
-                </a>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Books</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="dramabk">Drama</a></li>
+                  <li><a class="dropdown-item" href="fantacybk">Fantacy</a></li>
+                  <li><a class="dropdown-item" href="lovebk">Love</a></li>
+                  <li><a class="dropdown-item" href="scifibk">Sci-Fi</a></li>
+                  <li><a class="dropdown-item" href="othersbk">Others</a></li>
+                </ul>
               </li> 
               <li class="nav-item" id="dropdown">
-                <a href="" class="nav-link" id="dropbtn"> link 3
+                <a href="usedbk" class="nav-link" id="dropbtn"> Used Books
                 </a>
               </li>  
               <li class="nav-item" >
@@ -119,7 +125,7 @@
           {% endfor %}
         </div>
         <div style="display: flex;justify-content: right;">
-          <a href="" class="btn btn-success" style="margin-top: 20px;width: 150px;">Show more</a>
+          <a href="dramabk" class="btn btn-success" style="margin-top: 20px;width: 150px;">Show more</a>
         </div>
       </div>
       <div class="container">
@@ -141,7 +147,7 @@
           {% endfor %}
         </div>
         <div style="display: flex;justify-content: right;">
-          <a href="" class="btn btn-success" style="margin-top: 20px;width: 150px;">Show more</a>
+          <a href="scifibk" class="btn btn-success" style="margin-top: 20px;width: 150px;">Show more</a>
         </div>
       </div>
       <div class="container">
@@ -163,7 +169,7 @@
           {% endfor %}
         </div>
         <div style="display: flex;justify-content: right;">
-          <a href="" class="btn btn-success" style="margin-top: 20px;width: 150px;">Show more</a>
+          <a href="lovebk" class="btn btn-success" style="margin-top: 20px;width: 150px;">Show more</a>
         </div>
       </div>
       <div class="container" >
@@ -185,7 +191,7 @@
           {% endfor %}
         </div>
         <div style="display: flex;justify-content: right;">
-          <a href="" class="btn btn-success" style="margin-top: 20px;width: 150px;">Show more</a>
+          <a href="fantacybk" class="btn btn-success" style="margin-top: 20px;width: 150px;">Show more</a>
         </div>
     </div>
 </body>

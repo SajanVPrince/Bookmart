@@ -194,5 +194,47 @@
           <a href="fantacybk" class="btn btn-success" style="margin-top: 20px;width: 150px;">Show more</a>
         </div>
     </div>
+
+<!-- -----------------------------------Review Display-------------------------------------------------- -->
+<h3 style="text-align: center;margin-top: 20px;">Comments</h3>
+
+    <div id="demo" class="carousel slide" data-bs-ride="carousel">    
+      <div class="carousel-inner" style="margin-top: 40px;">
+        {% for i in rev %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+          <div class="container">
+            <div class="col-lg-6" style="border: 1px solid rgb(255, 0, 0);border-radius: 10px; display: flex;justify-content: center;margin-left:auto;margin-right: auto;">
+            <h6 style="margin-top: 20px;margin-right: auto;margin-left: 10px;"><i class="fa-solid fa-circle-user"></i>{{i.user.username}}</h6>
+            <p style="margin-top: 50px;text-align: center;">"{{i.review}}"</p>
+          </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    
+      <!-- Left and right controls/icons -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev" style="filter: invert(1);">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next" style="filter: invert(1);">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    </div>
+
+    <!-- -----------------------------------Submit you  comments ---------------------------------------------- -->
+
+    <div class="container">
+      <h3 style="text-align: center;margin-top: 50px;">Share your Comments</h3>
+      <div class="col-lg-6" style="background-color: aquamarine; display: flex;justify-content: center;margin-left:auto;margin-right: auto;border: 1px solid black;border-radius: 10px;">
+        <form action="" method="post">
+          {% csrf_token %}
+          <div class="mb-3 mt-3" style="text-align: center;">
+            <label for="comment">Comments:</label>
+            <textarea class="form-control" rows="5" cols="60%" id="comment" name="review"></textarea> <br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
 </body>
 </html>

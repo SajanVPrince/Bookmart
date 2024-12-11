@@ -27,6 +27,6 @@ class Sbook(models.Model):
     simg=models.FileField()
     sdis=models.TextField()
 
-    
-
-
+class Review(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    review=models.TextField()

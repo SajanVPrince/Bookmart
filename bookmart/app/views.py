@@ -4,7 +4,6 @@ from django.contrib import messages
 from django.contrib.auth.models import *
 from django.core.mail import send_mail
 from .models import *
-import random
 
 # Create your views here.
 
@@ -23,6 +22,7 @@ def bk_login(req):
             else:
                 login(req,data)
                 req.session['user']=uname
+                req.session['user1']= data.id
                 return redirect(bk_home)
         else:
             messages.warning(req,"Invalid uname or password")
@@ -72,7 +72,16 @@ def bk_home(req):
     data1=Books.objects.filter(bk_genres='sci-fi')[::-1][:4]
     data2=Books.objects.filter(bk_genres='love')[::-1][:4]
     data3=Books.objects.filter(bk_genres='fantasy')[::-1][:4]
-    return render(req,'user/home.html',{'data':data,'data1':data1,'data2':data2,'data3':data3})
+    if 'user' in req.session:
+        if req.method=='POST':
+            user=User.objects.get(username=req.session['user'])
+            review=req.POST['review']
+            data4=Review.objects.create(user=user,review=review)
+            data4.save()
+            messages.success(req,"Thanks for your complements")
+    
+    rev=Review.objects.all()[::-1]
+    return render(req,'user/home.html',{'data':data,'data1':data1,'data2':data2,'data3':data3,'rev':rev})
 
 def sell(req):
     if 'user' in req.session:
@@ -98,6 +107,10 @@ def view_prod(req,id):
     data=Books.objects.get(pk=id)
     return render(req,'user/viewprod.html',{'data':data})
 
+def sview_prod(req,id):
+    data=Sbook.objects.get(pk=id)
+    return render(req,'user/sviewprod.html',{'data':data})
+
 def userpro(req):
     return render(req,'user/userprofile.html')
 
@@ -122,5 +135,9 @@ def others(req):
     return render(req,'user/books/others.html',{'data':data})
 
 def usedbk(req):
-    data=Sbook.objects.all()[::-1]
+    if 'user1' in req.session:
+        user1 = req.session['user1']
+        data = Sbook.objects.exclude(user_id=user1).order_by('-id')
+    else:
+        data=Sbook.objects.all()[::-1]
     return render(req,'user/usedbook.html',{'data':data})

@@ -5,3 +5,4 @@ from .models import *
 admin.site.register(Books)
 admin.site.register(Userdtl)
 admin.site.register(Sbook)
+admin.site.register(Review)

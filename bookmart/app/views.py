@@ -141,3 +141,16 @@ def usedbk(req):
     else:
         data=Sbook.objects.all()[::-1]
     return render(req,'user/usedbook.html',{'data':data})
+
+def addfav(req,bid):
+    prod=Books.objects.get(pk=bid)
+    user=User.objects.get(username=req.session['user'])
+    data=Favorite.objects.create(user=user,product=prod)
+    data.save()
+    return redirect(viewfav)
+
+def viewfav(req):
+    user=User.objects.get(username=req.session['user'])
+    data=Favorite.objects.filter(user=user)
+    return render (req,'user/favorite.html',{'fav':data})
+    

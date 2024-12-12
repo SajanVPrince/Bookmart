@@ -20,6 +20,7 @@ urlpatterns = [
     path('home',views.bk_home),
     path('sell',views.sell),
     path('viewprod/<id>',views.view_prod),
+    path('sviewprod/<id>',views.sview_prod),
     path('userpro',views.userpro),
     path('dramabk',views.drama),
     path('lovebk',views.love),
@@ -27,6 +28,10 @@ urlpatterns = [
     path('scifibk',views.scifi),
     path('otherbk',views.others),
     path('usedbk',views.usedbk),
+    path('favbk/<bid>',views.addfav),
+    path('viewfav',views.viewfav),
+
+
 
 
 

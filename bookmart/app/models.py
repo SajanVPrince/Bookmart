@@ -30,3 +30,8 @@ class Sbook(models.Model):
 class Review(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     review=models.TextField()
+
+class Favorite(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    product=models.ForeignKey(Books,on_delete=models.CASCADE)
+    

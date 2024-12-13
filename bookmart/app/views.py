@@ -43,15 +43,9 @@ def register(req):
         password=req.POST['password']
         password1=req.POST['password1']
         if password==password1:
-            try:
-                data=User.objects.create_user(first_name=name,email=email,password=password,username=email)
-                data.save()
-                return redirect(bk_login)
-               
-            except:
-                if User.objects.filter(email=email).exists():
-                    messages.warning(req,"email already exists enter a new email id")
-                    return render(req,'user/register.html')
+            data=User.objects.create_user(first_name=name,email=email,password=password1,username=email)
+            data.save()
+            return render(req,'login.html')
         else:
             messages.warning(req,"Password Missmatch")
             return render(req,'user/register.html')
@@ -143,14 +137,22 @@ def usedbk(req):
     return render(req,'user/usedbook.html',{'data':data})
 
 def addfav(req,bid):
-    prod=Books.objects.get(pk=bid)
-    user=User.objects.get(username=req.session['user'])
-    data=Favorite.objects.create(user=user,product=prod)
-    data.save()
-    return redirect(viewfav)
+    if 'user' in req.session:
+        prod=Books.objects.get(pk=bid)
+        user=User.objects.get(username=req.session['user'])
+        data=Favorite.objects.create(user=user,product=prod)
+        data.save()
+        return redirect(viewfav)
+    else:
+        return redirect(bk_login)
 
 def viewfav(req):
-    user=User.objects.get(username=req.session['user'])
-    data=Favorite.objects.filter(user=user)
-    return render (req,'user/favorite.html',{'fav':data})
+    if 'user' in req.session:
+        user=User.objects.get(username=req.session['user'])
+        data=Favorite.objects.filter(user=user)
+        return render(req,'user/favorite.html',{'fav':data})
+    else:
+        return redirect (bk_login) 
     
+def viewcart(req):
+    return render(req,'user/cart.html')

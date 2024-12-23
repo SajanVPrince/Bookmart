@@ -106,7 +106,8 @@ def sview_prod(req,id):
     return render(req,'user/sviewprod.html',{'data':data})
 
 def userpro(req):
-    return render(req,'user/userprofile.html')
+    user=User.objects.get(username=req.session['user'])
+    return render(req,'user/userprofile.html',{'data':user})
 
 def drama(req):
     data=Books.objects.filter(bk_genres='drama')[::-1]
@@ -154,5 +155,45 @@ def viewfav(req):
     else:
         return redirect (bk_login) 
     
+def delete_fav(req):
+    fav=Favorite.objects.all()
+    fav.delete()
+    return redirect(viewfav)
+
+def fav_to_cart(req):
+    fav=Favorite.objects.all()
+    user=User.objects.get(username=req.session['user'])
+    prod=Favorite.product
+    fav.delete()
+    cart=Cart.objects.create(user=user,product=prod)
+    cart.save()
+    return redirect(viewcart)
+
+def add_to_cart(req,pid):
+    if 'user' in req.session:
+        prod=Books.objects.get(pk=pid)
+        user=User.objects.get(username=req.session['user'])
+        data=Cart.objects.create(user=user,product=prod)
+        data.save()
+        return redirect(viewcart)
+    else:
+        return redirect(bk_login)
+
 def viewcart(req):
-    return render(req,'user/cart.html')
+    if 'user' in req.session:
+        user=User.objects.get(username=req.session['user'])
+        cart=Cart.objects.filter(user=user)
+        return render(req,'user/cart.html',{'data':cart})
+    else:
+        return redirect (bk_login)
+
+def delete_cart(req,id):
+    cart=Cart.objects.get(pk=id)
+    cart.delete()
+    return redirect(viewcart)
+
+def product_buy(req,id):
+    if 'user' in req.session:
+        return render (req,'user/buypage.html')
+    else:
+        return redirect(bk_login)

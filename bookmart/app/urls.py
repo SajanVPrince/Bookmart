@@ -30,7 +30,13 @@ urlpatterns = [
     path('usedbk',views.usedbk),
     path('favbk/<bid>',views.addfav),
     path('viewfav',views.viewfav),
+    path('deletefav',views.delete_fav),
+    path('fav_to_cart',views.fav_to_cart),
+    path('add_to_cart/<pid>',views.add_to_cart),
     path('viewcart',views.viewcart),
+    path('product_buy/<id>',views.product_buy),
+    path('delete_cart/<id>',views.delete_cart),
+
 
 
 

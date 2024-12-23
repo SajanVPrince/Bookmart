@@ -9,6 +9,7 @@ class Books(models.Model):
     bk_genres=models.TextField()
     price=models.IntegerField()
     ofr_price=models.IntegerField()
+    stock=models.IntegerField()
     img=models.FileField()
     dis=models.TextField()
 
@@ -32,6 +33,14 @@ class Review(models.Model):
     review=models.TextField()
 
 class Favorite(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    product=models.ForeignKey(Books,on_delete=models.CASCADE)
+
+class Cart(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    product=models.ForeignKey(Books,on_delete=models.CASCADE)
+
+class Buy(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     product=models.ForeignKey(Books,on_delete=models.CASCADE)
     

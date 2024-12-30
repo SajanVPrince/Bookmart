@@ -197,3 +197,11 @@ def product_buy(req,id):
         return render (req,'user/buypage.html')
     else:
         return redirect(bk_login)
+
+def view_odrs(req):
+    if 'user' in req.session:
+        user=User.objects.get(username=req.session['user'])
+        buy=Buy.objects.filter(user=user)
+        return render (req,'user/myoders.html',{'data':buy})
+    else:
+        return redirect(bk_login)

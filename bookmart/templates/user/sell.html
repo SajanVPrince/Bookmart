@@ -104,26 +104,26 @@
 </div>
 </div>
 </div>
+{% if data %}
 <div class="container mt-5">
   <h3>Books You Sold</h3>
   <div class="row">
-    {% for i in data %}
           <div class="col-lg-3 mt-3">
             <a class="booka" href="sviewprod/{{i.pk}}">
             <div class="card" style="height: 500px;">
-              <img class="card-img-top" src="{{i.simg.url}}" alt="Card image" style="width:100%;height: 250px;">
+              <img class="card-img-top" src="{{data.simg.url}}" alt="Card image" style="width:100%;height: 250px;">
               <div class="card-body">
-                <h4 class="card-title">{{i.sname}}</h4>
-                <p class="card-text">{{i.sath_name}}</p>
-                <p class="card-text">{{i.sbk_genres}}</p>
-                <p class="card-text">{{i.sdis}}</p>
-                <h3 class="card-text">Rs.{{i.sprice}}</h3>
+                <h4 class="card-title">{{data.sname}}</h4>
+                <p class="card-text">{{data.sath_name}}</p>
+                <p class="card-text">{{data.sbk_genres}}</p>
+                <p class="card-text">{{data.sdis}}</p>
+                <h3 class="card-text">Rs.{{data.sprice}}</h3>
               </div>
             </div>
           </a>
           </div>
-          {% endfor %}
   </div>
 </div>
+{% endif %}
 </body>
 </html>

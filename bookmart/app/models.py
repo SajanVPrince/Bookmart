@@ -16,6 +16,11 @@ class Books(models.Model):
 class Userdtl(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     phone=models.IntegerField()
+    fullname=models.TextField()
+    city=models.TextField()
+    state=models.TextField()
+    altphone=models.IntegerField()
+    landmark=models.TextField()
     adress=models.TextField()
     pincode=models.IntegerField()
 

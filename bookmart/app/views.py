@@ -194,7 +194,20 @@ def delete_cart(req,id):
 
 def product_buy(req,id):
     if 'user' in req.session:
-        return render (req,'user/buypage.html')
+        try:
+            prod = Books.objects.get(pk=id)
+            if prod.stock > 0: 
+                user = User.objects.get(username=req.session['user'])
+                data = Buy.objects.create(user=user, product=prod)
+                data.save()
+                prod.stock -= 1
+                prod.save()
+                
+                return render(req, 'user/buypage.html',)
+            else:
+                return render(req, 'user/buypage.html',)
+        except Books.DoesNotExist:
+            return render(req, 'user/buypage.html', )
     else:
         return redirect(bk_login)
 
@@ -203,5 +216,23 @@ def view_odrs(req):
         user=User.objects.get(username=req.session['user'])
         buy=Buy.objects.filter(user=user)
         return render (req,'user/myoders.html',{'data':buy})
+    else:
+        return redirect(bk_login)
+    
+def cart_buy(req, id):
+    if 'user' in req.session:
+        user = User.objects.get(username=req.session['user'])
+        cart = Cart.objects.filter(user=user)
+        for i in cart:
+            prod = i.product 
+            if prod.stock > 0:
+                data = Buy.objects.create(user=user, product=prod)
+                data.save()
+                prod.stock -= 1
+                prod.save()
+                i.delete()
+            else:
+                return render(req, 'user/cart.html', {'message': f'{prod.name} is out of stock!'})
+        return redirect(view_odrs)
     else:
         return redirect(bk_login)

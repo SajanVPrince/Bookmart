@@ -62,20 +62,31 @@
           <form action="" method="post">
             <h3>Shipping Address</h3>
             <div>
-            <input type="text" class="form-control mt-3" required name="" id="" placeholder="Full Name">
-            <input type="text" class="form-control mt-3" required name="" id="" placeholder="Address">
-            <input type="text" class="form-control mt-3" required name="" id="" placeholder="Pincode">
-            <input type="text" class="form-control mt-3" required name="" id="" placeholder="City">
-            <input type="text" class="form-control mt-3" required name="" id="" placeholder="State">
-            <input type="text" class="form-control mt-3" required name="" id="" placeholder="Phonenumber">
-            <input type="text" class="form-control mt-3" required name="" id="" placeholder="Alternate number">
-            <input type="text" class="form-control mt-3" required name="" id="" placeholder="Landmark">
+            <input type="text" class="form-control mt-3" required name="fullname" id="" placeholder="Full Name">
+            <input type="text" class="form-control mt-3" required name="address" id="" placeholder="Address">
+            <input type="text" class="form-control mt-3" required name="pincode" id="" placeholder="Pincode">
+            <input type="text" class="form-control mt-3" required name="city" id="" placeholder="City">
+            <input type="text" class="form-control mt-3" required name="state" id="" placeholder="State">
+            <input type="text" class="form-control mt-3" required name="phnum" id="" placeholder="Phonenumber">
+            <input type="text" class="form-control mt-3" required name="aphnum" id="" placeholder="Alternate number">
+            <input type="text" class="form-control mt-3" required name="landmark" id="" placeholder="Landmark">
 
 
 
             <a href="" class="btn btn-primary" style="margin-top: 10px;">Save</a>
             </div>
           </form>
+        </div>
+      </div>
+
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-lg-4">
+            <h4>Billing Amount</h4> <br>
+           <h5>M.R.P = {{prod.price}}</h5><br>
+           <h5>Discount Price = {{prod.ofr_price}}</h5> <br>
+            <a href="" class="btn btn-outline-success">Proceed To buy</a>
+          </div>
         </div>
       </div>
 </body>

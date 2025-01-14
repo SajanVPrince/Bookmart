@@ -13,32 +13,26 @@
 <body>
     <nav class="navbar navbar-expand-sm " id="navb">
         <div class="container-fluid">
-          <a class="navbar-brand" href="home">BookMART</a>
+          <a class="navbar-brand" href="#">BookMART</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav me-auto">
               <li class="nav-item" id="dropdown">
-                <a href="sell" class="nav-link">Sell Your Book
+                <a href="addbook" class="nav-link">Add Book
                 </a>
               </li> 
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Books</a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="dramabk">Drama</a></li>
-                  <li><a class="dropdown-item" href="fantacybk">Fantacy</a></li>
-                  <li><a class="dropdown-item" href="lovebk">Love</a></li>
-                  <li><a class="dropdown-item" href="scifibk">Sci-Fi</a></li>
-                  <li><a class="dropdown-item" href="othersbk">Others</a></li>
-                </ul>
+              <li class="nav-item" id="dropdown">
+                <a href="viewbook" class="nav-link" id="dropbtn">Books
+                </a>
               </li> 
               <li class="nav-item" id="dropdown">
-                <a href="usedbk" class="nav-link" id="dropbtn"> Used Books
+                <a href="" class="nav-link" id="dropbtn"> link 3
                 </a>
               </li>  
               <li class="nav-item" >
-                <a href="" class="nav-link" id="dropbtn"> Favorites
+                <a href="" class="nav-link" id="dropbtn"> link4
                 </a>
               </li> 
             </ul>
@@ -58,23 +52,23 @@
         </div>
       </nav>
       <div class="container">
-        <h3 style="margin-top: 30px;margin-left: 30px;">Cart Details</h3>
-        <a href="deletefav" class="btn btn-danger">Remove All</a>
         <div class="row">
-            {% for i in fav %}
-            <div class="col-lg-3 mt-3">
-                <a class="booka" href="viewprod/{{i.product.pk}}">
-                    <div class="card" style="height: 450px;">
-                      <img class="card-img-top" src="{{i.product.img.url}}" alt="Card image" style="width:100%;height: 300px;">
-                      <div class="card-body">
-                        <h4 class="card-title">{{i.product.name}}</h4>
-                        <p class="card-text">{{i.product.ath_name}}</p>
-                        <p class="card-text">{{i.product.dis}}</p>
-                      </div>
-                    </div>
-                  </a>
+            {% for i in data %}
+          <div class="col-lg-3 mt-3">
+            <a class="booka" href="viewprod/{{i.pk}}">
+            <div class="card" style="height: 450px;">
+              <img class="card-img-top" src="{{i.img.url}}" alt="Card image" style="width:100%;height: 250px;">
+              <div class="card-body">
+                <h4 class="card-title">{{i.name}}</h4>
+                <p class="card-text">{{i.ath_name}}</p>
+                <p class="card-text">{{i.dis}}</p>
+                <a href="" class="btn btn-success" >edit</a>
+                <a href="" class="btn btn-danger">Delete</a>
+              </div>
             </div>
-            {% endfor %}
+          </a>
+          </div>
+          {% endfor %}
         </div>
       </div>
 </body>

@@ -10,6 +10,8 @@ urlpatterns = [
     # -------------Admin------------
 
     path('adhome',views.adhome),
+    path('addbook',views.addbook),
+    path('viewbook',views.viewbook),
 
 
 

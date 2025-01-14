@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<nav class="navbar navbar-expand-sm " id="navb">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">BookMART</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item" id="dropdown">
+            <a href="" class="nav-link">Add Book
+            </a>
+          </li> 
+          <li class="nav-item" id="dropdown">
+            <a href="viewbook" class="nav-link" id="dropbtn">Books
+            </a>
+          </li> 
+          <li class="nav-item" id="dropdown">
+            <a href="" class="nav-link" id="dropbtn"> link 3
+            </a>
+          </li>  
+          <li class="nav-item" >
+            <a href="" class="nav-link" id="dropbtn"> link4
+            </a>
+          </li> 
+        </ul>
+        <form class="d-flex">
+          <input class="form-control me-2" type="text" placeholder="Search">
+          <button class="btn btn-primary"><a href="" style="color: rgb(255, 255, 255); margin-top: 8px;"><i class="fa-solid fa-search"></i></a></button>
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="login"><i class="fa-solid fa-user" style="margin-left: 20px;"></i></a>
+            </li>
+            <li class="nav-item" >
+              <a class="nav-link" href=""><i class="fa-solid fa-cart-shopping" style="margin-left: 20px;"></i></a>
+            </li>
+          </ul>
+        </form>
+      </div>  
+    </div>
+  </nav>
+  <form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h3 style="text-align: center;">EDIT BOOK DETAILS</h3>
+<div class="container-fluid" style="margin-top: 40px;">
+    <div class="row">
+      <div class="col-4 mt-5" style="margin-left: 200px;">
+        <div class="card" style="width:300px;">
+            <img class="card-img-top" src="{{product.img.url}}" alt="Card image" style="width:100%;height: 300px;">
+            <div class="card-body">
+                <p class="card-text">Change Image</p>
+                <input type="file" name="img" id="">
+            </div>
+        </div>
+      </div>
+      <div class="col-8 mt-2" style="width: 30%;margin-left: 60px;">
+        <div class="mb-2 mt-2">
+            <label for="prod_id" class="form-label">Product ID:</label>
+            <input type="text" class="form-control" value="{{product.bk_id}}" name="bk_id" readonly>
+          </div>
+          <div class="mb-2">
+            <label for="prd_name" class="form-label">Product Name:</label>
+            <input type="text" class="form-control" value="{{product.name}}" name="bk_name">
+          </div>
+          <div class="mb-2">
+            <label for="price" class="form-label">Author Name:</label>
+            <input type="text" class="form-control" value="{{product.ath_name}}" name="ath_name">
+          </div>
+          <div class="mb-2">
+            <label for="prd_name" class="form-label">Genres:</label>
+            <select name="bk_genres" style="width: 100%;">
+              <option value="volvo">Novel</option>
+              <option value="saab">Short stories</option>
+              <option value="mercedes">Sci-Fi</option>
+              <option value="audi">Autobiography</option>
+              <option value="audi">Fantacy</option>
+              <option value="audi">Others</option>
+            </select>
+          </div>
+          <div class="mb-2">
+            <label for="price" class="form-label">Price:</label>
+            <input type="number" class="form-control" value="{{product.price}}" name="bk_price">
+          </div>
+          <div class="mb-2">
+            <label for="ofrprice" class="form-label">Offer Price:</label>
+            <input type="number" class="form-control" value="{{product.ofr_price}}" name="ofr_price">
+          </div>
+          <div class="mb-2">
+            <label for="dis" class="form-label">Discription:</label>
+            <input type="text" class="form-control" value="{{product.dis}}" name="bk_dis">
+          </div>
+          <div class="form-check mb-2">
+          </div>
+          <div>
+            <button type="submit" class="btn btn-success">Update</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</form>
+</body>
+</html>

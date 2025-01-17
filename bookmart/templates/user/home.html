@@ -199,6 +199,29 @@
         </div>
     </div>
 
+    <div class="container" >
+      <div class="row mt-5">
+        <h4>Other Stories</h4>
+        {% for i in data4 %}
+        <div class="col-lg-3 mt-3">
+          <a class="booka" href="viewprod/{{i.pk}}">
+          <div class="card" style="height: 450px;">
+            <img class="card-img-top" src="{{i.img.url}}" alt="Card image" style="width:100%;height: 300px;">
+            <div class="card-body">
+              <h4 class="card-title">{{i.name}}</h4>
+              <p class="card-text">{{i.ath_name}}</p>
+              <p class="card-text">{{i.dis}}</p>
+            </div>
+          </div>
+        </a>
+        </div>
+        {% endfor %}
+      </div>
+      <div style="display: flex;justify-content: right;">
+        <a href="otherbk" class="btn btn-success" style="margin-top: 20px;width: 150px;">Show more</a>
+      </div>
+  </div>
+
 <!-- -----------------------------------Review Display-------------------------------------------------- -->
 <h3 style="text-align: center;margin-top: 20px;">Comments</h3>
 

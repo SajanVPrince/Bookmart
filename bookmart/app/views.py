@@ -108,7 +108,7 @@ def edit_book(req,id):
             data.save()
             return redirect(viewbook)
         else:
-            return render(req,'admin/editbook.html',{'data':data})
+            return render(req,'admin/edit.html',{'data':data})
     else:
         return redirect(bk_login)
     

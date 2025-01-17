@@ -12,6 +12,11 @@ urlpatterns = [
     path('adhome',views.adhome),
     path('addbook',views.addbook),
     path('viewbook',views.viewbook),
+    path('editbook/<id>',views.edit_book),
+    path('deletebook/<id>',views.delete_book),
+    path('viewuser',views.view_user),
+    path('deleteuser/<id>',views.delete_user),
+    path('viewbuy',views.view_buy),
 
 
 

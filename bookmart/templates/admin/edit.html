@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
 </head>
 <nav class="navbar navbar-expand-sm " id="navb">
     <div class="container-fluid">
@@ -52,7 +57,7 @@
     <div class="row">
       <div class="col-4 mt-5" style="margin-left: 200px;">
         <div class="card" style="width:300px;">
-            <img class="card-img-top" src="{{product.img.url}}" alt="Card image" style="width:100%;height: 300px;">
+            <img class="card-img-top" src="{{data.img.url}}" alt="Card image" style="width:100%;height: 300px;">
             <div class="card-body">
                 <p class="card-text">Change Image</p>
                 <input type="file" name="img" id="">
@@ -62,38 +67,37 @@
       <div class="col-8 mt-2" style="width: 30%;margin-left: 60px;">
         <div class="mb-2 mt-2">
             <label for="prod_id" class="form-label">Product ID:</label>
-            <input type="text" class="form-control" value="{{product.bk_id}}" name="bk_id" readonly>
+            <input type="text" class="form-control" value="{{data.bk_id}}" name="bk_id" readonly>
           </div>
           <div class="mb-2">
             <label for="prd_name" class="form-label">Product Name:</label>
-            <input type="text" class="form-control" value="{{product.name}}" name="bk_name">
+            <input type="text" class="form-control" value="{{data.name}}" name="bk_name">
           </div>
           <div class="mb-2">
             <label for="price" class="form-label">Author Name:</label>
-            <input type="text" class="form-control" value="{{product.ath_name}}" name="ath_name">
+            <input type="text" class="form-control" value="{{data.ath_name}}" name="ath_name">
           </div>
           <div class="mb-2">
             <label for="prd_name" class="form-label">Genres:</label>
             <select name="bk_genres" style="width: 100%;">
-              <option value="volvo">Novel</option>
-              <option value="saab">Short stories</option>
-              <option value="mercedes">Sci-Fi</option>
-              <option value="audi">Autobiography</option>
-              <option value="audi">Fantacy</option>
-              <option value="audi">Others</option>
+              <option value="volvo">drama</option>
+              <option value="saab">love stories</option>
+              <option value="mercedes">sci-fi</option>
+              <option value="audi">fantacy</option>
+              <option value="audi">others</option>
             </select>
           </div>
           <div class="mb-2">
             <label for="price" class="form-label">Price:</label>
-            <input type="number" class="form-control" value="{{product.price}}" name="bk_price">
+            <input type="number" class="form-control" value="{{data.price}}" name="bk_price">
           </div>
           <div class="mb-2">
             <label for="ofrprice" class="form-label">Offer Price:</label>
-            <input type="number" class="form-control" value="{{product.ofr_price}}" name="ofr_price">
+            <input type="number" class="form-control" value="{{data.ofr_price}}" name="ofr_price">
           </div>
           <div class="mb-2">
             <label for="dis" class="form-label">Discription:</label>
-            <input type="text" class="form-control" value="{{product.dis}}" name="bk_dis">
+            <input type="text" class="form-control" value="{{data.dis}}" name="bk_dis">
           </div>
           <div class="form-check mb-2">
           </div>

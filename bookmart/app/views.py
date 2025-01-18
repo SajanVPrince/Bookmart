@@ -10,6 +10,8 @@ from .models import *
 def bk_login(req):
     if 'user' in req.session:
         return redirect(userpro)
+    if 'shop' in req.session:
+        return redirect(adminpro)
     if req.method=='POST':
         uname=req.POST['uname']
         password=req.POST['password']
@@ -54,24 +56,51 @@ def register(req):
     
 # ------------------------ADMIN---------------------
 
+def adminpro(req):
+    return render(req,'admin/adminprofile.html')
+
 def adhome(req):
-    return render(req,'admin/admin.html')
+    if req.method=='POST':
+        name=req.POST['name']
+        ath_name=req.POST['ath_name']
+        price=req.POST['price']
+        ofr_price=req.POST['ofr_price']
+        bk_genres=req.POST['bk_genres']
+        img=req.FILES['img']
+        dis=req.POST['dis']
+        stock=req.POST['stock']
+        data=Books.objects.create(name=name,ath_name=ath_name,price=price,ofr_price=ofr_price,bk_genres=bk_genres,img=img,dis=dis,stock=stock)
+        data.save()
+        return redirect(addbook)
+    else:
+        return render(req,'admin/admin.html')
+    
 
 def addbook(req):
     if 'shop' in req.session:
         if req.method=='POST':
-            bk_name=req.POST['bk_name']
+            name=req.POST['name']
             ath_name=req.POST['ath_name']
-            bk_price=req.POST['bk_price']
+            price=req.POST['price']
             bk_genres=req.POST['bk_genres']
             img=req.FILES['img']
-            bk_dis=req.POST['bk_dis']
+            dis=req.POST['dis']
             stock=req.POST['stock']
-            data=Books.objects.create(bk_name=bk_name,ath_name=ath_name,bk_price=bk_price,bk_genres=bk_genres,img=img,bk_dis=bk_dis,stock=stock)
+            data=Books.objects.create(name=name,ath_name=ath_name,price=price,bk_genres=bk_genres,img=img,dis=dis,stock=stock)
             data.save()
             return redirect(addbook)
         else:
             return render(req,'admin/addbook.html')
+    else:
+        return redirect(bk_login)
+    
+
+def search(req):
+    if 'shop' in req.session:
+        if req.method=='POST':
+            search=req.POST['search']
+            data=Books.objects.filter(name__contains=search)
+            return render(req,'user/search.html',{'data':data})
     else:
         return redirect(bk_login)
     
@@ -142,6 +171,11 @@ def view_buy(req):
         return render(req,'admin/buy.html',{'data':data})
     else:
         return redirect(bk_login)
+    
+def delete_buy(req,id):
+    buy=Buy.objects.get(pk=id)
+    buy.delete()
+    return redirect(view_buy)
     
 
 def view_review(req):

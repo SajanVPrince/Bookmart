@@ -9,6 +9,7 @@ urlpatterns = [
 
     # -------------Admin------------
 
+    path('adminpro',views.adminpro),
     path('adhome',views.adhome),
     path('addbook',views.addbook),
     path('viewbook',views.viewbook),
@@ -17,6 +18,11 @@ urlpatterns = [
     path('viewuser',views.view_user),
     path('deleteuser/<id>',views.delete_user),
     path('viewbuy',views.view_buy),
+    path('viewsbook',views.view_sbook),
+    path('deletesbook/<id>',views.delete_sbook),
+    path('deletebuy/<id>',views.delete_buy),
+    path('viewreview',views.view_review),
+    path('deletereview/<id>',views.delete_review),
 
 
 
@@ -44,6 +50,7 @@ urlpatterns = [
     path('product_buy/<id>',views.product_buy),
     path('delete_cart/<id>',views.delete_cart),
     path('cart_buy/<id>',views.cart_buy),
+    path('search',views.search),
 
 
 

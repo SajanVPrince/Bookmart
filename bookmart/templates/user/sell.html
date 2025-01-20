@@ -35,13 +35,17 @@
             </ul>
           </li>
           <li class="nav-item" id="dropdown">
-            <a href="" class="nav-link" id="dropbtn"> Used Book
+            <a href="usedbk" class="nav-link" id="dropbtn"> Used Books
             </a>
           </li>  
-          <li class="nav-item" >
-            <a href="" class="nav-link" id="dropbtn"> link4
+          <li class="nav-item" id="dropdown">
+            <a href="viewoders" class="nav-link" id="dropbtn"> My Orders
             </a>
-          </li> 
+          </li>
+          <li class="nav-item">
+            <a href="viewfav" class="nav-link" id="dropbtn"> Favorites
+            </a>
+          </li>  
         </ul>
         <form class="d-flex">
           <input class="form-control me-2" type="text" placeholder="Search">
@@ -75,10 +79,10 @@
           <div class="mb-2">
             <label for="prd_name" class="form-label">Genres:</label>
             <select name="bk_genres" style="width: 100%;">
-              <option value="novel">drama</option>
-              <option value="scifi">sci-fi</option>
+              <option value="drama">drama</option>
+              <option value="sci-fi">sci-fi</option>
               <option value="fantacy">fantacy</option>
-              <option value="fantacy">love</option>
+              <option value="love">love</option>
               <option value="others">others</option>
             </select>
           </div>
@@ -125,5 +129,50 @@
   </div>
 </div>
 {% endif %} -->
+<footer class="footer" style="margin-top: 50px;">
+  <div class="container" id="footcon">
+      <div class="row" id="footrow">
+          <div class="col-lg-3" id="footerdet">
+              <h4>BookMART</h4>
+                  <ul>
+                      <li><a href="#">about us</a></li>
+                      <li><a href="#">our services</a></li>
+                      <li><a href="#">privacy policy</a></li>
+                  </ul>
+          </div>
+          <div class="col-lg-3" id="footerdet">
+              <h4>Get Help</h4>
+                  <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <!-- <li><a href="#">shipping</a></li>
+                    <li><a href="#">returns</a></li> -->
+                    <li><a href="#">order status</a></li>
+                    <!-- <li><a href="#">payment options</a></li> -->
+                  </ul>
+              
+          </div>
+          <div class="col-lg-3" id="footerdet">
+              <h4>Navigate</h4>
+                  <ul>
+                      <li><a href="#">Home</a></li>
+                      <li><a href="#">Used Book</a></li>
+                      <li><a href="#">cart</a></li>
+                      <li><a href="#">Favorites</a></li>
+                  </ul>
+              
+          </div>
+          <div class="col-lg-3" id="footerdet">
+              <h4>follow us</h4>
+                  <div class="social-links">
+                      <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                      <a href="#"><i class="fa-solid fa-x"></i></a>
+                      <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                      <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                  </div>
+              
+          </div>
+      </div>
+  </div>
+</footer>
 </body>
 </html>

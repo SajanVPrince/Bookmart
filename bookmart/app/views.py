@@ -377,4 +377,18 @@ def cart_buy(req, id):
         else:
             return render(req, 'user/cart.html', {'message': f'{prod.name} is out of stock!'})
     return render(req,'user/buypage.html')
-    
+
+# ------------------------Footer------------------------------
+
+def about(req):
+    return render(req,'footer/about.html')
+
+def faq(req):
+    return render(req,'footer/faq.html')
+
+def services(req):
+    return render(req,'footer/our_services.html')
+
+def privacy(req):
+    return render(req,'footer/privacy.html')
+

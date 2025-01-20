@@ -51,13 +51,15 @@ urlpatterns = [
     path('delete_cart/<id>',views.delete_cart),
     path('cart_buy/<id>',views.cart_buy),
     path('search',views.search),
+    path('viewoders',views.view_odrs),
 
 
+# ----------------Footer------------------
 
-
-
-
-
+    path('about',views.about),
+    path('faq',views.faq),
+    path('service',views.services),
+    path('privacy',views.privacy),
 
 
 

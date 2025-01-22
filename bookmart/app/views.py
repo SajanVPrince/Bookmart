@@ -1,9 +1,10 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login,logout
-from django.contrib import messages
 from django.contrib.auth.models import *
-from django.core.mail import send_mail
 from .models import *
+from django.contrib import messages
+from django.core.mail import send_mail
+from django.conf import settings
 
 # Create your views here.
 
@@ -39,20 +40,20 @@ def bk_logout(req):
 
 
 def register(req):
-    if req.method=='POST':
-        name=req.POST['name']
-        email=req.POST['email']
-        password=req.POST['password']
-        password1=req.POST['password1']
-        if password==password1:
-            data=User.objects.create_user(first_name=name,email=email,password=password1,username=email)
-            data.save()
-            return render(req,'login.html')
+        if req.method=='POST':
+            name=req.POST['name']
+            email=req.POST['email']
+            password=req.POST['password']
+            try:
+                send_mail('user registration', 'account created', settings.EMAIL_HOST_USER, [email])
+                data=User.objects.create_user(first_name=name,email=email,password=password,username=email)
+                data.save()
+                return redirect(login)
+            except:
+                messages.warning(req,"Email not valid")
+                return redirect(register)
         else:
-            messages.warning(req,"Password Missmatch")
-            return render(req,'user/register.html')
-    else:
-        return render(req,'register.html')
+            return render(req,'register.html')
     
 # ------------------------ADMIN---------------------
 
@@ -71,7 +72,7 @@ def adhome(req):
         stock=req.POST['stock']
         data=Books.objects.create(name=name,ath_name=ath_name,price=price,ofr_price=ofr_price,bk_genres=bk_genres,img=img,dis=dis,stock=stock)
         data.save()
-        return redirect(addbook)
+        return redirect(adhome)
     else:
         return render(req,'admin/admin.html')
     
@@ -82,11 +83,12 @@ def addbook(req):
             name=req.POST['name']
             ath_name=req.POST['ath_name']
             price=req.POST['price']
+            ofr_price=req.POST['ofr_price']
             bk_genres=req.POST['bk_genres']
             img=req.FILES['img']
             dis=req.POST['dis']
             stock=req.POST['stock']
-            data=Books.objects.create(name=name,ath_name=ath_name,price=price,bk_genres=bk_genres,img=img,dis=dis,stock=stock)
+            data=Books.objects.create(name=name,ath_name=ath_name,price=price,ofr_price=ofr_price,bk_genres=bk_genres,img=img,dis=dis,stock=stock)
             data.save()
             return redirect(addbook)
         else:
@@ -327,6 +329,8 @@ def delete_cart(req,id):
 
 def product_buy(req,id):
     if 'user' in req.session:
+        user=User.objects.get(username=req.session['user'])
+        saved = Userdtl.objects.filter(user=user)
         if req.method=='POST':
             fullname=req.POST['fullname']
             adress=req.POST['address']
@@ -347,13 +351,15 @@ def product_buy(req,id):
                 data.save()
                 prod.stock -= 1
                 prod.save()
-                return render(req, 'user/buypage.html',)
+                return render(req, 'user/buypage.html',{'prod':prod,'saved':saved})
             else:
-                return render(req, 'user/buypage.html',{'prod':prod})
+                return render(req, 'user/buypage.html',{'prod':prod,'saved':saved})
         except Books.DoesNotExist:
-            return render(req, 'user/buypage.html',)
+            return render(req, 'user/buypage.html',{'prod':prod,'saved':saved})
     else:
         return redirect(bk_login)
+    
+
 
 def view_odrs(req):
     if 'user' in req.session:

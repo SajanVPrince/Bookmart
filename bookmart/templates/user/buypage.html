@@ -61,25 +61,30 @@
           </div>  
         </div>
       </nav>
+      
       <div class="container mt-4">
         <div class="row">
           <form action="" method="post">
+            {% csrf_token %}
             <h3>Shipping Address</h3>
             <div>
-            <input type="text" class="form-control mt-3" required name="fullname" id="" placeholder="Full Name">
-            <input type="text" class="form-control mt-3" required name="address" id="" placeholder="Address">
-            <input type="text" class="form-control mt-3" required name="pincode" id="" placeholder="Pincode">
-            <input type="text" class="form-control mt-3" required name="city" id="" placeholder="City">
-            <input type="text" class="form-control mt-3" required name="state" id="" placeholder="State">
-            <input type="text" class="form-control mt-3" required name="phnum" id="" placeholder="Phonenumber">
-            <input type="text" class="form-control mt-3" required name="aphnum" id="" placeholder="Alternate number">
-            <input type="text" class="form-control mt-3" required name="landmark" id="" placeholder="Landmark">
-
-
-
-            <a href="" class="btn btn-primary" style="margin-top: 10px;">Save</a>
+             
             </div>
-          </form>
+            <h3>Or Add New Address</h3>
+            <div>
+              <!-- <input type="text" class="form-control mt-3" required name="fullname" id="" placeholder="Full Name"> -->
+              <input type="text" class="form-control mt-3" required name="address" id="" placeholder="Address">
+              <input type="text" class="form-control mt-3" required name="pincode" id="" placeholder="Pincode">
+              <!-- <input type="text" class="form-control mt-3" required name="city" id="" placeholder="City">
+              <input type="text" class="form-control mt-3" required name="state" id="" placeholder="State"> -->
+              <input type="text" class="form-control mt-3" required name="phnum" id="" placeholder="Phonenumber">
+              <!-- <input type="text" class="form-control mt-3" required name="aphnum" id="" placeholder="Alternate number"> -->
+              <!-- <input type="text" class="form-control mt-3" required name="landmark" id="" placeholder="Landmark"> -->
+            <button type="submit" class="btn btn-primary mt-2">Save</button>
+            
+            
+              <!-- <a href="" class="btn btn-primary" style="margin-top: 10px;">Save</a> -->
+              </div>
         </div>
       </div>
 
@@ -140,3 +145,6 @@
     </footer>
 </body>
 </html>
+
+
+

@@ -76,3 +76,18 @@
 .form .link a:hover{
     color: white;
 }
+
+.login-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #0f6ead;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login-button:hover {
+    background-color: #487ba5;
+}

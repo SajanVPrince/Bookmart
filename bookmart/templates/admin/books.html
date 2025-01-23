@@ -32,9 +32,8 @@
                 </a>
               </li>  
               <li class="nav-item" >
-                <a href="" class="nav-link" id="dropbtn"> link4
-                </a>
-              </li> 
+                <a href="reviews" class="nav-link" id="dropbtn"> Reviews</a>
+            </li>
             </ul>
             <form class="d-flex">
               <input class="form-control me-2" type="text" placeholder="Search">
@@ -43,9 +42,7 @@
                 <li class="nav-item">
                   <a class="nav-link" href="login"><i class="fa-solid fa-user" style="margin-left: 20px;"></i></a>
                 </li>
-                <li class="nav-item" >
-                  <a class="nav-link" href=""><i class="fa-solid fa-cart-shopping" style="margin-left: 20px;"></i></a>
-                </li>
+                
               </ul>
             </form>
           </div>  
@@ -55,7 +52,6 @@
         <div class="row">
             {% for i in data %}
           <div class="col-lg-3 mt-3">
-            <a class="booka" href="viewprod/{{i.pk}}">
             <div class="card" style="height: 450px;">
               <img class="card-img-top" src="{{i.img.url}}" alt="Card image" style="width:100%;height: 250px;">
               <div class="card-body">

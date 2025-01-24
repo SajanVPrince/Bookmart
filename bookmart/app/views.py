@@ -41,16 +41,18 @@ def bk_logout(req):
 
 def register(req):
         if req.method=='POST':
-                name=req.POST['name']
-                email=req.POST['email']
-                password=req.POST['password']
-            # try:
+            name=req.POST['fname']
+            lname=req.POST['lname']
+            email=req.POST['email']
+            password=req.POST['password']
+            try:
                 send_mail('user registration', 'account created', settings.EMAIL_HOST_USER, [email])
-                data=User.objects.create(first_name=name,email=email,password=password,username=email)
+                data=User.objects.create(first_name=name,last_name=lname,email=email,password=password,username=email)
                 data.save()
+                messages.warning(req,"Account Created")
                 return redirect(login)
-            # except:
-                messages.warning(req,"Email not valid")
+            except:
+                messages.warning(req,"Account not Created")
                 return redirect(register)
         else:
             return render(req,'register.html')

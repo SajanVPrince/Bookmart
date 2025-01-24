@@ -19,12 +19,16 @@
     </style>
 </head>
 <body>
-    <div class="form_a" style=" height: 350px;">
+    <div class="form" style=" height: 350px;">
+    <form action="" method="post">
+        {% csrf_token %}
         <h2>Register</h2>
-        <input type="name" name="name" placeholder="Enter name here" required>
+        <input type="name" name="fname" placeholder="Enter first name here" required>
+        <input type="name" name="lname" placeholder="Enter last name here" required>
         <input type="email" name="email" placeholder="Enter Email Here" required>
         <input type="password" name="password" placeholder="Enter Password Here" required>
-        <button class="btnn" ><a href="login" style="text-decoration: none;color: white;">Continue</a></button>
+        <button type="submit" class="btnn" style="text-decoration: none;color: white;">Continue</button>
+    </form>
     </div>
     <div style="display: flex; justify-content: center; margin-top: 2%;">
     {% if messages %}

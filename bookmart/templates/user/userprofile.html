@@ -13,7 +13,7 @@
 <body>
     <nav class="navbar navbar-expand-sm " id="navb">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">BookMART</a>
+          <a class="navbar-brand" href="home">BookMART</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -51,10 +51,10 @@
               <button class="btn btn-primary"><a href="" style="color: rgb(255, 255, 255); margin-top: 8px;"><i class="fa-solid fa-search"></i></a></button>
               <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                  <a class="nav-link" href="login"><i class="fa-solid fa-user" style="margin-left: 20px;"></i></a>
+                  <a class="nav-link active" href="login"><i class="fa-solid fa-user" style="margin-left: 20px;"></i></a>
                 </li>
                 <li class="nav-item" >
-                  <a class="nav-link" href=""><i class="fa-solid fa-cart-shopping" style="margin-left: 20px;"></i></a>
+                  <a class="nav-link" href="viewcart"><i class="fa-solid fa-cart-shopping" style="margin-left: 20px;"></i></a>
                 </li>
               </ul>
             </form>
@@ -66,12 +66,12 @@
         <div class="row">
           <div class="col-lg-6 mt-5">
             <h2 style="color: brown;">Hello! {{data.first_name}}</h2>
-            <a href="" class="btn btn-secondary" style="width: 400px;margin-top: 10px;">My Orders</a>
-            <a href="" class="btn btn-secondary" style="width: 400px;margin-top: 10px;">Edit profile</a>
-            <a href="" class="btn btn-secondary" style="width: 400px;margin-top: 10px;">Manage address</a>
-            <a href="" class="btn btn-secondary" style="width: 400px;margin-top: 10px;">Books You Sold</a>
-            <a href="" class="btn btn-secondary" style="width: 400px;margin-top: 10px;">My Cart</a>
-            <a href="" class="btn btn-secondary" style="width: 400px;margin-top: 10px;">My Favorites</a>
+            <a href="viewoders" class="btn btn-secondary" style="width: 400px;margin-top: 10px;">My Orders</a>
+            <!-- <a href="editpro" class="btn btn-secondary" style="width: 400px;margin-top: 10px;">Edit profile</a> -->
+            <a href="manageadd" class="btn btn-secondary" style="width: 400px;margin-top: 10px;">Manage address</a>
+            <a href="soldbooks" class="btn btn-secondary" style="width: 400px;margin-top: 10px;">Books You Sold</a>
+            <a href="viewcart" class="btn btn-secondary" style="width: 400px;margin-top: 10px;">My Cart</a>
+            <a href="viewfav" class="btn btn-secondary" style="width: 400px;margin-top: 10px;">My Favorites</a>
           </div>
         </div>
       </div>
@@ -81,15 +81,15 @@
                 <div class="col-lg-3" id="footerdet">
                     <h4>BookMART</h4>
                         <ul>
-                            <li><a href="#">about us</a></li>
-                            <li><a href="#">our services</a></li>
-                            <li><a href="#">privacy policy</a></li>
+                            <li><a href="about">about us</a></li>
+                            <li><a href="service">our services</a></li>
+                            <li><a href="privacy">privacy policy</a></li>
                         </ul>
                 </div>
                 <div class="col-lg-3" id="footerdet">
                     <h4>Get Help</h4>
                         <ul>
-                          <li><a href="#">FAQ</a></li>
+                          <li><a href="faq">FAQ</a></li>
                           <!-- <li><a href="#">shipping</a></li>
                           <li><a href="#">returns</a></li> -->
                           <li><a href="#">order status</a></li>
@@ -100,10 +100,10 @@
                 <div class="col-lg-3" id="footerdet">
                     <h4>Navigate</h4>
                         <ul>
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Used Book</a></li>
-                            <li><a href="#">cart</a></li>
-                            <li><a href="#">Favorites</a></li>
+                            <li><a href="home">Home</a></li>
+                            <li><a href="usedbk">Second Book</a></li>
+                            <li><a href="viewcart">cart</a></li>
+                            <li><a href="viewfav">Favorites</a></li>
                         </ul>
                     
                 </div>

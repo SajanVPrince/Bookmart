@@ -1,93 +1,99 @@
-.form{
-    width: 250px;
-    height: 350px;
-    background: linear-gradient(to top, rgba(0,0,0,0.8)50%,rgba(0,0,0,0.8)50%);
-    position: absolute;
-    top: 100px;
-    left: 38%;
-    transform: translate(0%,-5%);
-    border-radius: 10px;
-    padding: 25px;
-}
-.form h2{
-    width: 220px;
-    font-family: sans-serif;
-    text-align: center;
-    color:  #ffffff;
-    font-size: 22px;
-    border-radius: 10px;
-    margin: 2px;
-    padding: 8px;
-}
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
-.form input{
-    width: 240px;
-    height: 35px;
-    background: transparent;
-    border-bottom: 1px solid  #6562e7;
-    border-top: none;
-    border-right: none;
-    border-left: none;
-    color: #fff;
-    font-size: 15px;
-    letter-spacing: 1px;
-    margin-top: 30px;
-    font-family: sans-serif;
+.login-page {
+  
+  width: 360px;
+  padding: 8% 0 0;
+  margin: auto;
 }
-
-.form input:focus{
-    outline: none;
+.form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
-
-::placeholder{
-    color: #fff;
-    font-family: Arial;
+.form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
 }
-
-.btnn{
-    width: 240px;
-    height: 40px;
-    background:  #6562e7;
-    border: none;
-    margin-top: 30px;
-    font-size: 18px;
-    border-radius: 10px;
-    cursor: pointer;
-    color: #fff;
-    transition: 0.4s ease;
+.form button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #363636;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
 }
-
-.btnn:hover{
-    color: #fff;
-    background: #8584f0;
+.form button:hover,.form button:active,.form button:focus {
+  background: #4F4F4F;
 }
-
-.form .link{
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 17px;
-    padding-top: 20px;
-    text-align: center;
-    color: white;
+.form .message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
 }
-.form .link a{
-    text-decoration: none;
-    color: #6562e7;
+.form .message a {
+  color: #4F4F4F;
+  text-decoration: none;
 }
-.form .link a:hover{
-    color: white;
+.form .register-form {
+  display: none;
 }
-
-.login-button {
-    width: 100%;
-    padding: 12px;
-    background-color: #0f6ead;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 300px;
+  margin: 0 auto;
 }
-
-.login-button:hover {
-    background-color: #487ba5;
+.container:before, .container:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.container .info {
+  margin: 50px auto;
+  text-align: center;
+}
+.container .info h1 {
+  margin: 0 0 15px;
+  padding: 0;
+  font-size: 36px;
+  font-weight: 300;
+  color: #1a1a1a;
+}
+.container .info span {
+  color: #4d4d4d;
+  font-size: 12px;
+}
+.container .info span a {
+  color: #000000;
+  text-decoration: none;
+}
+.container .info span .fa {
+  color: #EF3B3A;
+}
+body {
+  background-image: url("http://dallevas.com/site/wp-content/uploads/2013/12/Black-Background-Pattern.jpg");
+  background-size:100% 100%;
+-webkit-background-size: 100% 100%;
+-o-background-size: 100% 100%;
+-khtml-background-size: 100% 100%;
+-moz-background-size: 100% 100%;
 }

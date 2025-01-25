@@ -42,12 +42,11 @@ def bk_logout(req):
 def register(req):
         if req.method=='POST':
             name=req.POST['fname']
-            lname=req.POST['lname']
             email=req.POST['email']
             password=req.POST['password']
             try:
                 send_mail('user registration', 'account created', settings.EMAIL_HOST_USER, [email])
-                data=User.objects.create(first_name=name,last_name=lname,email=email,password=password,username=email)
+                data=User.objects.create(first_name=name,email=email,password=password,username=email)
                 data.save()
                 messages.warning(req,"Account Created")
                 return redirect(login)
@@ -385,6 +384,37 @@ def cart_buy(req, id):
         else:
             return render(req, 'user/cart.html', {'message': f'{prod.name} is out of stock!'})
     return render(req,'user/buypage.html')
+
+def addrs(req):
+    if 'user' in req.session:
+        user=User.objects.get(username=req.session['user'])
+        data1=Userdtl.objects.filter(user=user)
+
+        if req.method == 'POST':
+            user=User.objects.get(username=req.session['user'])
+            name=req.POST['name']
+            phn=req.POST['phn']
+            altphn=req.POST['altphn']
+            pin=req.POST['pin']
+            land=req.POST['land']
+            adrs=req.POST['adrs']
+            city=req.POST['city']
+            state=req.POST['state']
+            data=Userdtl.objects.create(user=user,fullname=name,phone=phn,pincode=pin,landmark=land,adress=adrs,city=city,state=state,altphone=altphn)
+            data.save()
+            return redirect(addrs)
+        else:
+            return render(req,'user/adrs.html',{'data1':data1})
+    else:
+        return render(req,"user/userprf.html")
+
+def delete_address(req,pid):
+    if 'user' in req.session:
+        data=Userdtl.objects.get(pk=pid)
+        data.delete()
+        return redirect(addrs)
+    else:
+        return redirect(userpro)
 
 # ------------------------Footer------------------------------
 

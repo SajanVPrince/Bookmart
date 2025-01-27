@@ -5,7 +5,10 @@ urlpatterns = [
     path('login',views.bk_login),
     path('logout',views.bk_logout),
     path('register',views.register),
-    # path('verifyotp',views.verify_otp),
+    path('verifyotp',views.verify_otp, name='verify_otp'),
+    path('resend',views.resent_otp, name='resetpassword'),
+    path('forget',views.forgetpassword),
+    path('reset',views.resetpassword),
 
     # -------------Admin------------
 

@@ -5,6 +5,7 @@ from .models import *
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
+from django.utils.crypto import get_random_string
 
 # Create your views here.
 
@@ -46,7 +47,7 @@ def register(req):
             password=req.POST['password']
             try:
                 send_mail('user registration', 'account created', settings.EMAIL_HOST_USER, [email])
-                data=User.objects.create(first_name=name,email=email,password=password,username=email)
+                data=User.objects.create_user(first_name=name,email=email,password=password,username=email)
                 data.save()
                 messages.warning(req,"Account Created")
                 return redirect(login)
@@ -55,6 +56,60 @@ def register(req):
                 return redirect(register)
         else:
             return render(req,'register.html')
+        
+def forgetpassword(req):
+    if req.method == 'POST':
+        email = req.POST['email']
+        try:
+            user = User.objects.get(email=email)
+            otp = get_random_string(length=6, allowed_chars='0123456789')
+            req.session['otp'] = otp
+            req.session['email'] = email
+            send_mail('Password Reset OTP', f'Your OTP is: {otp}', settings.EMAIL_HOST_USER, [email])
+            messages.warning(req, "OTP sent to your email")
+            return redirect(verify_otp)
+        except User.DoesNotExist:
+            messages.warning(req, "Email not found")
+            return redirect(forgetpassword)
+    else:
+        return render(req, 'forgetpassword.html')
+    
+def verify_otp(req):
+    if req.method == 'POST':
+        otp = req.POST['otp']
+        if otp == req.session.get('otp'):
+            return redirect('resetpassword')
+        else:
+            messages.warning(req, "Invalid OTP")
+            return redirect(verify_otp)
+    else:
+        return render(req, 'verify_otp.html')
+    
+def resent_otp(req):
+    email = req.session.get('email')
+    if email:
+        otp = get_random_string(length=6, allowed_chars='0123456789')
+        req.session['otp'] = otp
+        send_mail('Password Reset OTP', f'Your OTP is: {otp}', settings.EMAIL_HOST_USER, [email])
+        messages.warning(req, "OTP resent to your email")
+    return redirect(verify_otp)
+    
+
+def resetpassword(req):
+    if req.method == 'POST':
+        password = req.POST['pass']
+        email = req.session.get('email')
+        try:
+            user = User.objects.get(email=email)
+            user.set_password(password)
+            user.save()
+            messages.warning(req, "Password reset successfully")
+            return redirect(login)
+        except User.DoesNotExist:
+            messages.warning(req, "Error resetting password")
+            return redirect(resetpassword)
+    else:
+        return render(req, 'resetpassword.html')
     
 # ------------------------ADMIN---------------------
 

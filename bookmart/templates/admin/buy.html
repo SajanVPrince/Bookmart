@@ -32,7 +32,7 @@
                 </a>
               </li>  
               <li class="nav-item" >
-                <a href="reviews" class="nav-link" id="dropbtn"> Reviews</a>
+                <a href="viewreview" class="nav-link" id="dropbtn"> Reviews</a>
             </li>
             </ul>
             <form class="d-flex">
@@ -47,9 +47,11 @@
           </div>  
         </div>
       </nav>
-    <div class="container">
-        {% for i in data %}
+    <div class="container mt-4">
+      {% if data %}
+        <h3>All Buy</h3>
         <div class="row" style="margin-top: 30px;">
+        {% for i in data %}
             <div class="col-lg-6">
                 <img src="{{i.product.img.url}}" alt="" style="width: 100%; height: 300px;object-fit: contain;">
             </div>
@@ -64,6 +66,9 @@
         </div>
 
         {% endfor %}
+      {% else %}
+        <h3 style="text-align: center;margin-top: 20%;">No Buy</h3>
+      {% endif %}
 </div>
 </body>
 </html>

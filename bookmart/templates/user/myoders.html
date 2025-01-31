@@ -63,6 +63,8 @@
       </nav>
 
       <div class="container">
+        {% if data %}
+        <h2>My Orders</h2>
         {% for i in data %}
         <div class="row" style="margin-top: 30px;">
             <div class="col-lg-6">
@@ -79,6 +81,9 @@
         </div>
 
         {% endfor %}
+        {% else %}
+        <h2 style="text-align: center;margin-top: 20%;">No Orders</h2>
+        {% endif %}
 </div>
 <footer class="footer" style="margin-top: 50px;">
   <div class="container" id="footcon">

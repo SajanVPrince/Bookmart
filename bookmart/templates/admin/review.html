@@ -32,7 +32,7 @@
                 </a>
               </li>  
                 <li class="nav-item active" >
-                    <a href="reviews" class="nav-link" id="dropbtn"> Reviews</a>
+                    <a href="viewreview" class="nav-link active" id="dropbtn"> Reviews</a>
                 </li>
             </ul>
             <form class="d-flex">
@@ -49,6 +49,8 @@
         </div>
       </nav>
       <div class="container">
+        {% if data %}
+        <h2>Reviews By Users</h2>
         <table class="table table-hover">
             <thead>
               <tr>
@@ -68,6 +70,9 @@
             </tbody>
             {% endfor %}
           </table>
+        {% else %}
+          <h5 style="text-align: center;margin-top: 20%;">No Reviews Availible...</h5>
+        {% endif %}
       </div>
 </body>
 </html>

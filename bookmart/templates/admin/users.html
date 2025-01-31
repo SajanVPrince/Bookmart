@@ -28,11 +28,11 @@
                 </a>
               </li> 
               <li class="nav-item" id="dropdown">
-                <a href="viewuser" class="nav-link" id="dropbtn"> Users
+                <a href="viewuser" class="nav-link active" id="dropbtn"> Users
                 </a>
               </li>  
               <li class="nav-item" >
-                <a href="reviews" class="nav-link" id="dropbtn"> Reviews</a>
+                <a href="viewreview" class="nav-link" id="dropbtn"> Reviews</a>
             </li>
             </ul>
             <form class="d-flex">
@@ -48,25 +48,35 @@
           </div>  
         </div>
       </nav>
-    <div class="container">
-        <div class="row">
+
+      <div class="container">
+        <h3>All Users</h3>
+        {% if data %}
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>firstname</th>
+                <th>Email</th>
+                <th>Date Joined</th>
+
+              </tr>
+            </thead>
             {% for i in data %}
-          <div class="col-lg-3 mt-3">
-            <a class="booka" href="viewprod/{{i.pk}}">
-            <div class="card" style="height: 450px;">
-              <div class="card-body">
-                <h4 class="card-title">{{i.username}}</h4>
-                <p class="card-text">{{i.superuser}}</p>
-                <p class="card-text">{{i.first_name}}</p>
-                <p class="card-text">{{i.date_joined}}</p>
-                <p class="card-text">{{i.email}}</p>
-                <a href="deleteuser/{{i.pk}}" class="btn btn-danger">Delete</a>
-              </div>
-            </div>
-          </a>
-          </div>
-          {% endfor %}
-        </div>
+            <tbody>
+              <tr>
+                <td>{{i.username}}</td>
+                <td>{{i.first_name}}</td>
+                <td>{{i.email}}</td>
+                <td>{{i.date_joined}}</td>
+                <td><a href="deleteuser/{{i.pk}}" class="btn btn-outline-danger">Delete</a></td>
+              </tr>
+            </tbody>
+            {% endfor %}
+          </table>
+          {% else %}
+          <p style="text-align: center;margin-top: 20%;">No data available.....</p>
+        {% endif %}
       </div>
 </body>
 </html>

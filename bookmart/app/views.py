@@ -41,21 +41,61 @@ def bk_logout(req):
 
 
 def register(req):
-        if req.method=='POST':
-            name=req.POST['fname']
-            email=req.POST['email']
-            password=req.POST['password']
-            try:
-                send_mail('user registration', 'account created', settings.EMAIL_HOST_USER, [email])
-                data=User.objects.create_user(first_name=name,email=email,password=password,username=email)
-                data.save()
-                messages.warning(req,"Account Created")
-                return redirect(login)
-            except:
-                messages.warning(req,"Account not Created")
-                return redirect(register)
+    if req.method == 'POST':
+        fname = req.POST['fname']
+        email = req.POST['email']
+        password = req.POST['password']
+        if User.objects.filter(email=email).exists():
+            messages.warning(req, "Email already registered")
+            return redirect('register')
+        otp = get_random_string(length=6, allowed_chars='0123456789')
+        req.session['otp'] = otp
+        req.session['email'] = email
+        req.session['fname'] = fname
+        req.session['password'] = password
+        send_mail(
+            'Your OTP Code',
+            f'Your OTP is: {otp}',
+            settings.EMAIL_HOST_USER, [email]
+        )
+        messages.success(req, "OTP sent to your email")
+        return redirect('verify_otp_reg')
+    return render(req, 'register.html')
+
+def verify_otp_reg(req):
+    if req.method == 'POST':
+        entered_otp = req.POST['otp'] 
+        stored_otp = req.session.get('otp')
+        email = req.session.get('email')
+        fname = req.session.get('fname')
+        password = req.session.get('password')
+        if entered_otp == stored_otp:
+            user = User.objects.create_user(first_name=fname,email=email,password=password,username=email)
+            user.is_verified = True
+            user.save()      
+            messages.success(req, "Registration successful! You can now log in.")
+            send_mail('User Registration Succesfull', 'Account Created Succesfully And Welcome To Bookmart', settings.EMAIL_HOST_USER, [email])
+            return redirect('login')
         else:
-            return render(req,'register.html')
+            messages.warning(req, "Invalid OTP. Try again.")
+            return redirect('verify_otp_reg')
+
+    return render(req, 'verify_oto_reg.html')
+
+def resend_otp_reg(req):
+    email = req.session.get('email')
+    if email:
+        otp = get_random_string(length=6, allowed_chars='0123456789')
+        req.session['otp'] = otp
+        
+        send_mail(
+            'Your New OTP Code',
+            f'Your OTP is: {otp}',
+            settings.EMAIL_HOST_USER, [email]
+        )
+        messages.success(req, "OTP resent to your email")
+    
+    return redirect('verify_otp_reg')
         
 def forgetpassword(req):
     if req.method == 'POST':
@@ -66,14 +106,13 @@ def forgetpassword(req):
             req.session['otp'] = otp
             req.session['email'] = email
             send_mail('Password Reset OTP', f'Your OTP is: {otp}', settings.EMAIL_HOST_USER, [email])
-            messages.warning(req, "OTP sent to your email")
-            return redirect(verify_otp)
+            messages.success(req, "OTP sent to your email")
+            return redirect('verify_otp')
         except User.DoesNotExist:
             messages.warning(req, "Email not found")
-            return redirect(forgetpassword)
-    else:
-        return render(req, 'forgetpassword.html')
-    
+            return redirect('forgetpassword')
+    return render(req, 'forgetpassword.html')
+
 def verify_otp(req):
     if req.method == 'POST':
         otp = req.POST['otp']
@@ -81,35 +120,32 @@ def verify_otp(req):
             return redirect('resetpassword')
         else:
             messages.warning(req, "Invalid OTP")
-            return redirect(verify_otp)
-    else:
-        return render(req, 'verify_otp.html')
-    
-def resent_otp(req):
+            return redirect('verify_otp')
+    return render(req, 'verify_otp.html')
+
+def resend_otp(req):  
     email = req.session.get('email')
     if email:
         otp = get_random_string(length=6, allowed_chars='0123456789')
         req.session['otp'] = otp
         send_mail('Password Reset OTP', f'Your OTP is: {otp}', settings.EMAIL_HOST_USER, [email])
-        messages.warning(req, "OTP resent to your email")
-    return redirect(verify_otp)
-    
+        messages.success(req, "OTP resent to your email")
+    return redirect('verify_otp')
 
 def resetpassword(req):
     if req.method == 'POST':
-        password = req.POST['pass']
+        password = req.POST['password']  
         email = req.session.get('email')
         try:
             user = User.objects.get(email=email)
             user.set_password(password)
             user.save()
-            messages.warning(req, "Password reset successfully")
-            return redirect(login)
+            messages.success(req, "Password reset successfully")
+            return redirect('login')
         except User.DoesNotExist:
             messages.warning(req, "Error resetting password")
-            return redirect(resetpassword)
-    else:
-        return render(req, 'resetpassword.html')
+            return redirect('resetpassword')
+    return render(req, 'resetpassword.html')
     
 # ------------------------ADMIN---------------------
 
@@ -306,6 +342,25 @@ def userpro(req):
     user=User.objects.get(username=req.session['user'])
     return render(req,'user/userprofile.html',{'data':user})
 
+def change_pass(req):
+    if 'user' in req.session:
+        if req.method=='POST':
+            user=User.objects.get(username=req.session['user'])
+            old_pass=req.POST['oldpass']
+            new_pass=req.POST['newpass']
+            if user.check_password(old_pass):
+                user.set_password(new_pass)
+                user.save()
+                messages.success(req,"Password changed successfully")
+                return redirect(userpro)
+            else:
+                messages.warning(req,"Old password is incorrect")
+                return redirect(change_pass)
+        else:
+            return render(req,'user/changepass.html')
+    else:
+        return redirect(bk_login)
+
 def drama(req):
     data=Books.objects.filter(bk_genres='drama')[::-1]
     return render(req,'user/books/drama.html',{'data':data})
@@ -459,7 +514,7 @@ def addrs(req):
             data.save()
             return redirect(addrs)
         else:
-            return render(req,'user/adrs.html',{'data1':data1})
+            return render(req,'user/adress.html',{'data1':data1})
     else:
         return render(req,"user/userprf.html")
 
@@ -471,6 +526,13 @@ def delete_address(req,pid):
     else:
         return redirect(userpro)
 
+def view_soldbooks(req):
+    if 'user' in req.session:
+        user = User.objects.get(username=req.session['user'])
+        data = Sbook.objects.filter(user=user)
+        return render(req, 'user/soldbk.html', {'data': data})
+    else:
+        return redirect('bk_login')
 # ------------------------Footer------------------------------
 
 def about(req):
@@ -484,4 +546,3 @@ def services(req):
 
 def privacy(req):
     return render(req,'footer/privacy.html')
-

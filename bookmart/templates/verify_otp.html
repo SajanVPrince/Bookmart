@@ -25,12 +25,12 @@
     </div>
     <div class="login-page">
         <div class="form">
-            <form class="login-form" method="POST" action="reset">
+            <form class="login-form" method="POST" action="{% url 'verify_otp' %}">
                 {% csrf_token %}
                 <h3>Verify OTP</h3>
                 <input type="text" placeholder="Enter the OTP received" name="otp" required>
-                <button type="submit"><a href="reset" style="text-decoration: none;color: white;">Submit OTP</a></button>
-                <p class="message"><a href="resend">Resend otp</a></p>
+                <button type="submit">Submit OTP</button>
+                <p class="message"><a href="{% url 'resend_otp' %}">Resend OTP</a></p>
             </form>
         </div>
     </div>

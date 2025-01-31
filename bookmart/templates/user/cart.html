@@ -62,7 +62,9 @@
         </div>
       </nav>
   
-      <div class="container">
+      <div class="container mt-5">
+        {% if data %}
+        <h1 style="margin-top: 50px;">Cart</h1>
         {% for i in data %}
         <div class="row" style="margin-top: 30px;">
             <div class="col-lg-6">
@@ -77,8 +79,11 @@
               <a href="cart_buy/{{i.pk}}" class="btn btn-success" style="margin-left: 30px; margin-top: 20px;">Buy Now</a>
             </div>
         </div>
-
         {% endfor %}
+        
+        {% else %}
+          <h3 style="text-align: center;margin-top: 20%;">No Items Added To cart..</h3>
+        {% endif %}
 </div>
 <footer class="footer" style="margin-top: 50px;">
   <div class="container" id="footcon">

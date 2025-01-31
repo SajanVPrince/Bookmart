@@ -62,7 +62,8 @@
         </div>
       </nav>
       <div class="container">
-        <h3 style="margin-top: 30px;margin-left: 30px;">Cart Details</h3>
+        {% if fav %}
+        <h2>Favorites</h2>
         <a href="deletefav" class="btn btn-danger">Remove All</a>
         <div class="row">
             {% for i in fav %}
@@ -79,6 +80,9 @@
                   </a>
             </div>
             {% endfor %}
+            {% else %}
+              <h4 style="text-align: center;margin-top: 20%;">No Favorites</h4>
+            {% endif %}
         </div>
       </div>
       <footer class="footer" style="margin-top: 50px;">

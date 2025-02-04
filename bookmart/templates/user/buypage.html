@@ -62,24 +62,49 @@
         </div>
       </nav>
       
+      
       <div class="container mt-4">
+        <h4 style="color: rgb(255, 123, 0);">Buy Product</h4>
+        <h3>Book Name : {{ prod.name }}</h3>
+        <p>{{ prod.dis }}</p>
+        <p>Price: {{ prod.ofr_price }}</p>
         <div class="row">
           <form action="" method="post">
             {% csrf_token %}
-            <h3>Shipping Address</h3>
-            <div>
-             
+            {% if saved_addresses %}
+            <form method="POST">
+                {% csrf_token %}
+                <ul>
+                    {% for address in saved_addresses %}
+                    <input type="radio" id="address_{{ address.id }}" name="address_id" value="{{ address.id }}">    
+                    <li style="list-style-type: none;">
+                            <label for="address_{{ address.id }}">
+                                <p><strong>Full Name:</strong> {{ address.fullname }}</p>
+                                <p><strong>Address:</strong> {{ address.adress }}</p>
+                                <p><strong>State:</strong> {{ address.state }}</p>
+                                <p><strong>Pincode:</strong> {{ address.pincode }}</p>
+                                <p><strong>Phone:</strong> {{ address.phone }}</p>
+                                <p><strong>Alt Phone:</strong> {{ address.altphone }}</p>
+                            </label>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <button type="submit" class="btn btn-primary">Select Address</button>
+            </form>
+        {% else %}
+            <p>No saved addresses. Please add one.</p>
+        {% endif %}
             </div>
             <h3>Or Add New Address</h3>
             <div>
-              <!-- <input type="text" class="form-control mt-3" required name="fullname" id="" placeholder="Full Name"> -->
+              <input type="text" class="form-control mt-3" required name="fullname" id="" placeholder="Full Name">
               <input type="text" class="form-control mt-3" required name="address" id="" placeholder="Address">
               <input type="text" class="form-control mt-3" required name="pincode" id="" placeholder="Pincode">
-              <!-- <input type="text" class="form-control mt-3" required name="city" id="" placeholder="City">
-              <input type="text" class="form-control mt-3" required name="state" id="" placeholder="State"> -->
+              <input type="text" class="form-control mt-3" required name="city" id="" placeholder="City">
+              <input type="text" class="form-control mt-3" required name="state" id="" placeholder="State">
               <input type="text" class="form-control mt-3" required name="phnum" id="" placeholder="Phonenumber">
-              <!-- <input type="text" class="form-control mt-3" required name="aphnum" id="" placeholder="Alternate number"> -->
-              <!-- <input type="text" class="form-control mt-3" required name="landmark" id="" placeholder="Landmark"> -->
+              <input type="text" class="form-control mt-3" required name="aphnum" id="" placeholder="Alternate number">
+              <input type="text" class="form-control mt-3" required name="landmark" id="" placeholder="Landmark">
             <button type="submit" class="btn btn-primary mt-2">Save</button>
             
             

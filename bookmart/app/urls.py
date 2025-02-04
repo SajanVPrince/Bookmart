@@ -61,6 +61,9 @@ urlpatterns = [
     path('manageadd',views.addrs),
     path('delete_address/<id>',views.delete_address),
     path('soldbooks',views.view_soldbooks),
+    path('ordersucces',views.order_success , name='order_success'),
+    path('cancel_oder/<id>',views.cancel_order),
+    path('view_details/<id>',views.view_booking_details),
 
 
 # ----------------Footer------------------

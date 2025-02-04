@@ -261,13 +261,13 @@ def delete_user(req,id):
    
 def view_buy(req):
     if 'shop' in req.session:
-        data=Buy.objects.all()
+        data=Buys.objects.all()
         return render(req,'admin/buy.html',{'data':data})
     else:
         return redirect(bk_login)
     
 def delete_buy(req,id):
-    buy=Buy.objects.get(pk=id)
+    buy=Buys.objects.get(pk=id)
     buy.delete()
     return redirect(view_buy)
     
@@ -438,44 +438,60 @@ def delete_cart(req,id):
     cart.delete()
     return redirect(viewcart)
 
-def product_buy(req,id):
+def product_buy(req, id):
     if 'user' in req.session:
-        user=User.objects.get(username=req.session['user'])
-        saved = Userdtl.objects.filter(user=user)
-        if req.method=='POST':
-            fullname=req.POST['fullname']
-            adress=req.POST['address']
-            pincode=req.POST['pincode']
-            city=req.POST['city']
-            state=req.POST['state']
-            phone=req.POST['phnum']
-            altphone=req.POST['aphnum']
-            landmark=req.POST['landmark']
-            user=User.objects.get(username=req.session['user'])
-            data=Userdtl.objects.create(user=user,phone=phone,fullname=fullname,city=city,state=state,altphone=altphone,landmark=landmark,adress=adress,pincode=pincode)
-            data.save()
+        user = User.objects.get(username=req.session['user'])
+        saved_addresses = Userdtl.objects.filter(user=user)
+        prod = None
         try:
             prod = Books.objects.get(pk=id)
-            if prod.stock > 0: 
-                user = User.objects.get(username=req.session['user'])
-                data = Buy.objects.create(user=user, product=prod)
-                data.save()
+        except Books.DoesNotExist:
+            return redirect('home')
+
+        if req.method == 'POST':
+            if 'address_id' in req.POST:
+                selected_address_id = req.POST['address_id']
+                user_address = Userdtl.objects.get(id=selected_address_id)
+            else:
+                fullname = req.POST['fullname']
+                address = req.POST['address']
+                pincode = req.POST['pincode']
+                city = req.POST['city']
+                state = req.POST['state']
+                phone = req.POST['phnum']
+                altphone = req.POST['aphnum']
+                landmark = req.POST['landmark']
+                user_address = Userdtl.objects.create(
+                    user=user,
+                    phone=phone,
+                    fullname=fullname,
+                    city=city,
+                    state=state,
+                    altphone=altphone,
+                    landmark=landmark,
+                    adress=address,
+                    pincode=pincode
+                )
+                user_address.save()
+
+            if prod.stock > 0:
+                purchase = Buys.objects.create(user=user, product=prod, address=user_address)
+                purchase.save()
                 prod.stock -= 1
                 prod.save()
-                return render(req, 'user/buypage.html',{'prod':prod,'saved':saved})
-            else:
-                return render(req, 'user/buypage.html',{'prod':prod,'saved':saved})
-        except Books.DoesNotExist:
-            return render(req, 'user/buypage.html',{'prod':prod,'saved':saved})
+                return redirect(order_success)
+
+        return render(req, 'user/buypage.html', {'prod': prod, 'saved_addresses': saved_addresses})
     else:
         return redirect(bk_login)
     
-
+def order_success(req):
+    return render(req, 'user/ordersuccess.html')
 
 def view_odrs(req):
     if 'user' in req.session:
         user=User.objects.get(username=req.session['user'])
-        buy=Buy.objects.filter(user=user)
+        buy=Buys.objects.filter(user=user)
         return render (req,'user/myoders.html',{'data':buy})
     else:
         return redirect(bk_login)
@@ -486,7 +502,7 @@ def cart_buy(req, id):
     for i in cart:
         prod = i.product 
         if prod.stock > 0:
-            data = Buy.objects.create(user=user, product=prod)
+            data = Buys.objects.create(user=user, product=prod)
             data.save()
             prod.stock -= 1
             prod.save()
@@ -532,7 +548,24 @@ def view_soldbooks(req):
         data = Sbook.objects.filter(user=user)
         return render(req, 'user/soldbk.html', {'data': data})
     else:
-        return redirect('bk_login')
+        return redirect(bk_login)
+    
+def cancel_order(req, id):
+    if 'user' in req.session:
+        order = Buys.objects.get(pk=id)
+        order.delete()
+        return redirect(view_odrs)
+    else:
+        return redirect(bk_login)
+    
+def view_booking_details(req,id):
+    if 'user' in req.session:
+        user = User.objects.get(username=req.session['user'])
+        bookings =  Buys.objects.filter(user=user)
+        return render(req, 'user/viewbookingdetails.html', {'bookings': bookings})
+    else:
+        return redirect(bk_login)
+
 # ------------------------Footer------------------------------
 
 def about(req):

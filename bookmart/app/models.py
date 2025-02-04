@@ -45,7 +45,8 @@ class Cart(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     product=models.ForeignKey(Books,on_delete=models.CASCADE)
 
-class Buy(models.Model):
+class Buys(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     product=models.ForeignKey(Books,on_delete=models.CASCADE)
-    
+    address=models.ForeignKey(Userdtl,on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)

@@ -507,6 +507,7 @@ def cart_buy(req, id):
             prod.stock -= 1
             prod.save()
             i.delete()
+            return redirect(product_buy)
         else:
             return render(req, 'user/cart.html', {'message': f'{prod.name} is out of stock!'})
     return render(req,'user/buypage.html')

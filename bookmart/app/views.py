@@ -339,8 +339,38 @@ def sview_prod(req,id):
     return render(req,'user/sviewprod.html',{'data':data})
 
 def userpro(req):
-    user=User.objects.get(username=req.session['user'])
-    return render(req,'user/userprofile.html',{'data':user})
+    if 'user' in req.session:
+        user=User.objects.get(username=req.session['user'])
+        data1=Userdtl.objects.filter(user=user)
+        if req.method == 'POST':
+            user=User.objects.get(username=req.session['user'])
+            name=req.POST['name']
+            phn=req.POST['phn']
+            altphn=req.POST['altphn']
+            pin=req.POST['pin']
+            land=req.POST['land']
+            adrs=req.POST['adrs']
+            city=req.POST['city']
+            state=req.POST['state']
+            data=Userdtl.objects.create(user=user,fullname=name,phone=phn,pincode=pin,landmark=land,adress=adrs,city=city,state=state,altphone=altphn)
+            data.save()
+            return redirect(userpro)
+        elif req.method=='POST':
+            user=User.objects.get(username=req.session['user'])
+            old_pass=req.POST['oldpass']
+            new_pass=req.POST['newpass']
+            if user.check_password(old_pass):
+                user.set_password(new_pass)
+                user.save()
+                messages.success(req,"Password changed successfully")
+                return redirect(userpro)
+            else:
+                messages.warning(req,"Old password is incorrect")
+                return redirect(change_pass)
+        else:
+            return render(req,'user/userprofile.html',{'data':user,'data1':data1})
+    else:
+        return render(req,'user/userprofile.html',{'data':user})
 
 def change_pass(req):
     if 'user' in req.session:
@@ -539,7 +569,7 @@ def delete_address(req,pid):
     if 'user' in req.session:
         data=Userdtl.objects.get(pk=pid)
         data.delete()
-        return redirect(addrs)
+        return redirect(userpro)
     else:
         return redirect(userpro)
 

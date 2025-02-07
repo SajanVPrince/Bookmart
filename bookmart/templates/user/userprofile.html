@@ -9,6 +9,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <style>
+      .content-div {
+        display: none;
+      }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-sm " id="navb">
@@ -67,14 +72,73 @@
           <div class="col-lg-6 mt-5">
             <h2 style="color: brown;">Hello! {{data.first_name}}</h2>
             <a href="viewoders" class="btn btn-secondary" style="width: 400px;margin-top: 10px;">My Orders</a>
-            <!-- <a href="editpro" class="btn btn-secondary" style="width: 400px;margin-top: 10px;">Edit profile</a> -->
-            <a href="manageadd" class="btn btn-secondary" style="width: 400px;margin-top: 10px;">Manage address</a>
+            <!-- <a href="editpro" onclick="showDiv('editpro')" class="btn btn-secondary" style="width: 400px;margin-top: 10px;">Edit profile</a> -->
+            <a href="#" onclick="showDiv('manageadd')" class="btn btn-secondary" style="width: 400px;margin-top: 10px;">Manage address</a>
             <a href="soldbooks" class="btn btn-secondary" style="width: 400px;margin-top: 10px;">Books You Sold</a>
             <a href="viewcart" class="btn btn-secondary" style="width: 400px;margin-top: 10px;">My Cart</a>
             <a href="viewfav" class="btn btn-secondary" style="width: 400px;margin-top: 10px;">My Favorites</a>
-            <a href="change_pass" class="btn btn-outline-danger" style="width: 200px;margin-top: 10px;">Change Password</a>
+            <a href="" onclick="showDiv('changepass')" class="btn btn-outline-danger" style="width: 200px;margin-top: 10px;">Change Password</a>
             <a href="logout" class="btn btn-danger" style="width: 200px;margin-top: 10px;">Log out</a>
 
+          </div>
+          <div class="col-lg-6 mt-5">
+            <div id="manageadd" class="content-div">
+                <h4>Add Address</h4>
+                <form action="" method="post">
+                  {% csrf_token %}
+                  <input type="text" placeholder="FullName"  name="name" value="" class="form-control"> <br>
+                  <input type="number" placeholder="Phone no." name="phn" value="" class="form-control"><br>
+                  <input type="number" placeholder="Alternate Phone no." name="altphn" value="" class="form-control"><br>
+                  <input type="number" placeholder="Pincode" name="pin" value="" class="form-control"><br>
+                  <input type="text" name="land" id="" placeholder="Landmark"  class="form-control"><br>
+                  <input type="text" name="adrs" id="" placeholder="Address" class="form-control"><br>
+                  <input type="text" name="city" id="" placeholder="City/District/Town" class="form-control"><br>
+                  <input type="text" name="state" id="" placeholder="State" class="form-control"><br>
+                    <button type="submit" class="btn btn-outline-primary">Submit</button>
+              </form>
+            </div>
+            {% if data1 %}
+                {% for i in data1 %}
+                <div class="content-div">
+                      <h6 class="card-text"><b>Name : </b>{{i.fullname}}</h6>
+                      <h6 class="card-text"> <b>Phone : </b> {{i.phone}}</h6>
+                      <h6 class="card-text"><b>Alternate Phone :</b> {{i.altphone}}</h6>
+                      <h6 class="card-text"><b>Pincode :</b>{{i.pincode}}</h6>
+                      <h6 class="card-text"><b>Landmark :</b>{{i.landmark}}</h6>
+                      <h6 class="card-text"><b>Address : </b>{{i.adress}}</h6>
+                      <h6 class="card-text"><b>City : </b>{{i.city}}</h6>
+                      <h6 class="card-text"><b>State : </b>{{i.state}}</h6>
+                      <a href="delete_address/{{i.pk}}" class="btn btn-danger">Delete</a>
+                  </div>
+                {% endfor %}
+              {% else %}
+              <h6 style="text-align: center;margin-top: 10%;">No Saved Address available.....</h6>
+              {% endif %}
+          </div>
+          <div class="col-lg-6 mt-5">
+            <div id="changepass" class="content-div">
+              <div style="display: flex; justify-content: center;">
+                {% if messages %}
+                {% for message in  messages%}
+                <div class="alert alert-warning alert-dismissible" style="width: 400px;">
+                  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                  {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                </div>
+                <div class="login-page">
+                  <div class="form">
+                      <form class="login-form" method="POST">
+                          {% csrf_token %}
+                          <h3>Change Your Current Password</h3>
+                          <input type="text" placeholder="Enter your old password" name="oldpass" required>
+                          <input type="password" placeholder="Enter your New Password" name="newpass" required>
+                          <button type="submit">Change</button>
+                      </form>
+                  </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -123,5 +187,13 @@
             </div>
         </div>
     </footer>
+  <script>
+      function showDiv(divId) {
+          document.querySelectorAll('.content-div').forEach(div => {
+              div.style.display = "none";
+          });
+          document.getElementById(divId).style.display = "block";
+      }
+  </script>
 </body>
 </html>

@@ -65,16 +65,15 @@
         {% if data %}
         <h3>Books Sold By the You </h3>
         <div class="row">
-            {% for i in data %}
           <div class="col-lg-3 mt-3">
-            <a class="booka" href="viewprod/{{i.pk}}">
+            <a class="booka" href="viewprod/{{data.pk}}">
             <div class="card" style="height: 450px;">
-              <img class="card-img-top" src="{{i.img.url}}" alt="Card image" style="width:100%;height: 250px;">
+              <img class="card-img-top" src="{{data.img.url}}" alt="Card image" style="width:100%;height: 250px;">
               <div class="card-body">
-                <h4 class="card-title">{{i.name}}</h4>
-                <p class="card-text">{{i.ath_name}}</p>
-                <p class="card-text">{{i.dis}}</p>
-                <a href="deletesbook/{{i.pk}}" class="btn btn-danger">Delete</a>
+                <h4 class="card-title">{{data.name}}</h4>
+                <p class="card-text">{{data.ath_name}}</p>
+                <p class="card-text">{{data.dis}}</p>
+                <a href="deletesbook/{{data.pk}}" class="btn btn-danger">Delete</a>
               </div>
             </div>
           </a>
